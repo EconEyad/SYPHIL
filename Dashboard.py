@@ -5,16 +5,22 @@ from urllib.parse import urlparse
 # Connect to the SQLite database
 DATABASE_URL = st.secrets["DATABASE_URL"]
 
-# Function to connect to PostgreSQL
 def get_postgres_connection():
+    DATABASE_URL = st.secrets["DATABASE_URL"]
     parsed_url = urlparse(DATABASE_URL)
-    return psycopg2.connect(
-        dbname=parsed_url.path[1:],  # Removes the leading "/"
-        user=parsed_url.username,
-        password=parsed_url.password,
-        host=parsed_url.hostname,
-        port=parsed_url.port
-    )
+    
+    try:
+        connection = psycopg2.connect(
+            dbname=parsed_url.path[1:],  # Removes the leading "/"
+            user=parsed_url.username,
+            password=parsed_url.password,
+            host=parsed_url.hostname,
+            port=parsed_url.port
+        )
+        return connection
+    except Exception as e:
+        st.error(f"Failed to connect to database: {e}")
+        raise e
 
 # Connect to the PostgreSQL database
 conn = get_postgres_connection()

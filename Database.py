@@ -107,8 +107,6 @@ def initialize_database(conn):
         )
         """)
 
-
-
 # Initialize the database
 conn = get_postgres_connection()
 initialize_database(conn)
