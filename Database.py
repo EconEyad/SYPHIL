@@ -1,25 +1,40 @@
+import os
 import numpy as np
 import pandas as pd
-import sqlite3
-conn = sqlite3.connect('Transaction.sqlite3')
-conn.execute("PRAGMA foreign_keys = ON;")  # Enable foreign key enforcement
+import psycopg2
+from urllib.parse import urlparse
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+def get_postgres_connection():
+    parsed_url = urlparse(DATABASE_URL)
+    return psycopg2.connect(
+        dbname=parsed_url.path[1:],
+        user=parsed_url.username,
+        password=parsed_url.password,
+        host=parsed_url.hostname,
+        port=parsed_url.port
+    )
+
+conn = get_postgres_connection()
 c = conn.cursor()
+
+
 
 # 1: Create Product table
 c.execute("""
-CREATE TABLE Product (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Product (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     Item_desc TEXT NOT NULL UNIQUE
 )
 """)
 
-# 2: Create Printer table
 c.execute("""
-CREATE TABLE Printer (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Printer (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     Name TEXT NOT NULL UNIQUE,
     Address TEXT NOT NULL UNIQUE,
-    Contract_details INT NOT NULL UNIQUE 
+    Contract_details INT NOT NULL UNIQUE
 )
 """)
 
@@ -35,8 +50,8 @@ CREATE TABLE Buyer (
 
 # 4: Create Supplier table
 c.execute("""
-CREATE TABLE Supplier (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Supplier (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     Name TEXT NOT NULL UNIQUE,
     Address TEXT NOT NULL UNIQUE,
     Contract_details INT NOT NULL UNIQUE
@@ -45,8 +60,8 @@ CREATE TABLE Supplier (
 
 # 5: Create Agent table
 c.execute("""
-CREATE TABLE Agent (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Agent (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     Name TEXT NOT NULL UNIQUE,
     Address TEXT NOT NULL UNIQUE,
     Contract_details INT NOT NULL UNIQUE
@@ -55,8 +70,8 @@ CREATE TABLE Agent (
 
 # 6: Create Invoice table
 c.execute("""
-CREATE TABLE Invoice (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Invoice (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     Payment_request_num TEXT NOT NULL,
     Delivery_client_num TEXT NOT NULL,
     Billing_num TEXT NOT NULL,
@@ -68,19 +83,19 @@ CREATE TABLE Invoice (
 
 # 7: Create Date table
 c.execute("""
-CREATE TABLE Date (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Date (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     Year INT NOT NULL,
-    Quarter INT NOT NULL ,
+    Quarter INT NOT NULL,
     Month INT NOT NULL,
-    Day INT NOT NULL 
+    Day INT NOT NULL
 )
 """)
 
 # 8: Create Revenue table
 c.execute("""
-CREATE TABLE Revenue (
-    ID INTEGER UNIQUE NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Revenue (
+    ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
     ID_buyer INT NOT NULL REFERENCES Buyer(ID),
     ID_printer INT NOT NULL REFERENCES Printer(ID),
     ID_product INT NOT NULL REFERENCES Product(ID),
@@ -99,12 +114,7 @@ CREATE TABLE Revenue (
 )
 """)
 
+# Commit and close connection
 conn.commit()
+c.close()
 conn.close()
-
-# Streamlit:
-
-# Connect to the database
-conn = sqlite3.connect('Transaction.sqlite3')
-conn.execute("PRAGMA foreign_keys = ON;")  # Ensure foreign key constraints
-c = conn.cursor()

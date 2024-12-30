@@ -1,9 +1,45 @@
 import streamlit as st
-import sqlite3
+import psycopg2
+from urllib.parse import urlparse
 
 # Connect to the SQLite database
-conn = sqlite3.connect('Transaction.sqlite3')
-conn.execute("PRAGMA foreign_keys = ON;")  # Enable foreign key constraints
+DATABASE_URL = st.secrets["DATABASE_URL"]
+
+# Function to connect to PostgreSQL
+def get_postgres_connection():
+    parsed_url = urlparse(DATABASE_URL)
+    return psycopg2.connect(
+        dbname=parsed_url.path[1:],  # Removes the leading "/"
+        user=parsed_url.username,
+        password=parsed_url.password,
+        host=parsed_url.hostname,
+        port=parsed_url.port
+    )
+
+# Connect to the PostgreSQL database
+conn = get_postgres_connection()
+c = conn.cursor()
+
+import streamlit as st
+import psycopg2
+from urllib.parse import urlparse
+
+# Use DATABASE_URL from Streamlit secrets
+DATABASE_URL = st.secrets["DATABASE_URL"]
+
+# Function to connect to PostgreSQL
+def get_postgres_connection():
+    parsed_url = urlparse(DATABASE_URL)
+    return psycopg2.connect(
+        dbname=parsed_url.path[1:],  # Removes the leading "/"
+        user=parsed_url.username,
+        password=parsed_url.password,
+        host=parsed_url.hostname,
+        port=parsed_url.port
+    )
+
+# Connect to the PostgreSQL database
+conn = get_postgres_connection()
 c = conn.cursor()
 
 st.title("Transaction Entry Dashboard")
@@ -62,49 +98,81 @@ with st.form("transaction_form"):
     if submitted:
         try:
             # Insert or get ID for Buyer
-            c.execute("INSERT OR IGNORE INTO Buyer (Name, Address, Contract_details) VALUES (?, ?, ?)", 
-                      (buyer_name, buyer_address, buyer_contract))
-            buyer_id = c.execute("SELECT ID FROM Buyer WHERE Name = ? AND Address = ?", (buyer_name, buyer_address)).fetchone()[0]
+            c.execute("""
+                INSERT INTO Buyer (Name, Address, Contract_details)
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+            """, (buyer_name, buyer_address, buyer_contract))
+            conn.commit()
+            c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
+            buyer_id = c.fetchone()[0]
 
             # Insert or get ID for Printer
-            c.execute("INSERT OR IGNORE INTO Printer (Name, Address, Contract_details) VALUES (?, ?, ?)", 
-                      (printer_name, printer_address, printer_contract))
-            printer_id = c.execute("SELECT ID FROM Printer WHERE Name = ? AND Address = ?", (printer_name, printer_address)).fetchone()[0]
+            c.execute("""
+                INSERT INTO Printer (Name, Address, Contract_details)
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+            """, (printer_name, printer_address, printer_contract))
+            conn.commit()
+            c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
+            printer_id = c.fetchone()[0]
 
             # Insert or get ID for Product
-            c.execute("INSERT OR IGNORE INTO Product (Item_desc) VALUES (?)", (product_desc,))
-            product_id = c.execute("SELECT ID FROM Product WHERE Item_desc = ?", (product_desc,)).fetchone()[0]
+            c.execute("""
+                INSERT INTO Product (Item_desc)
+                VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
+            """, (product_desc,))
+            conn.commit()
+            c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
+            product_id = c.fetchone()[0]
 
             # Insert or get ID for Supplier
-            c.execute("INSERT OR IGNORE INTO Supplier (Name, Address, Contract_details) VALUES (?, ?, ?)", 
-                      (supplier_name, supplier_address, supplier_contract))
-            supplier_id = c.execute("SELECT ID FROM Supplier WHERE Name = ? AND Address = ?", (supplier_name, supplier_address)).fetchone()[0]
+            c.execute("""
+                INSERT INTO Supplier (Name, Address, Contract_details)
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+            """, (supplier_name, supplier_address, supplier_contract))
+            conn.commit()
+            c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
+            supplier_id = c.fetchone()[0]
 
             # Insert or get ID for Agent
-            c.execute("INSERT OR IGNORE INTO Agent (Name, Address, Contract_details) VALUES (?, ?, ?)", 
-                      (agent_name, agent_address, agent_contract))
-            agent_id = c.execute("SELECT ID FROM Agent WHERE Name = ? AND Address = ?", (agent_name, agent_address)).fetchone()[0]
+            c.execute("""
+                INSERT INTO Agent (Name, Address, Contract_details)
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+            """, (agent_name, agent_address, agent_contract))
+            conn.commit()
+            c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name, agent_address))
+            agent_id = c.fetchone()[0]
 
-            # Insert or get ID for Invoice
-            c.execute("INSERT INTO Invoice (Payment_request_num, Delivery_client_num, Billing_num, Collection_num, Deposit_cheque_num, Status) VALUES (?, ?, ?, ?, ?, ?)", 
-                      (payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
+            # Insert Invoice
+            c.execute("""
+                INSERT INTO Invoice (Payment_request_num, Delivery_client_num, Billing_num, Collection_num, Deposit_cheque_num, Status)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
+            conn.commit()
             invoice_id = c.lastrowid
 
-            # Insert or get ID for Date
-            c.execute("INSERT OR IGNORE INTO Date (Year, Quarter, Month, Day) VALUES (?, ?, ?, ?)", 
+            # Insert Date
+            c.execute("""
+                INSERT INTO Date (Year, Quarter, Month, Day)
+                VALUES (%s, %s, %s, %s) ON CONFLICT (Year, Quarter, Month, Day) DO NOTHING
+            """, (year, quarter, month, day))
+            conn.commit()
+            c.execute("SELECT ID FROM Date WHERE Year = %s AND Quarter = %s AND Month = %s AND Day = %s",
                       (year, quarter, month, day))
-            date_id = c.execute("SELECT ID FROM Date WHERE Year = ? AND Quarter = ? AND Month = ? AND Day = ?", 
-                                (year, quarter, month, day)).fetchone()[0]
+            date_id = c.fetchone()[0]
 
             # Insert into Revenue
-            c.execute("""INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice, ID_date, 
-                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Production_start_date, Delivery_date, Billing_date, Payment_date) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", 
-                      (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id, date_id, price_per_item, 
-                       cost_per_item, print_per_item, commission_rate, production_start_date, delivery_date, billing_date, payment_date))
-
+            c.execute("""
+                INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice, ID_date,
+                                     Price_per_item, Cost_per_item, Print_per_item, Commission_rate,
+                                     Production_start_date, Delivery_date, Billing_date, Payment_date)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id, date_id,
+                  price_per_item, cost_per_item, print_per_item, commission_rate,
+                  production_start_date, delivery_date, billing_date, payment_date))
             conn.commit()
+
             st.success("Transaction submitted successfully!")
 
         except Exception as e:
+            conn.rollback()  # Roll back transaction on error
             st.error(f"An error occurred: {e}")
