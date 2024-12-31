@@ -154,7 +154,7 @@ with st.form("transaction_form"):
                 VALUES (%s, %s, %s, %s, %s, %s)
             """, (payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
             conn.commit()
-            invoice_id = c.lastrowid
+            invoice_id = c.fetch()[0]
 
             # Insert Date
             c.execute("""
