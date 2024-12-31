@@ -152,6 +152,7 @@ with st.form("transaction_form"):
             c.execute("""
                 INSERT INTO Invoice (Payment_request_num, Delivery_client_num, Billing_num, Collection_num, Deposit_cheque_num, Status)
                 VALUES (%s, %s, %s, %s, %s, %s)
+                RETURNING ID
             """, (payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
             conn.commit()
             invoice_id = c.fetchone()[0]
