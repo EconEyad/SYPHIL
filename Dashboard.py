@@ -52,28 +52,30 @@ st.title("Transaction Entry Dashboard")
 
 # Form to input transaction details
 with st.form("transaction_form"):
-    with st.expander("Buyer details"):
+    # Buyer Details
     buyer_name = st.text_input("Buyer Name")
     buyer_address = st.text_input("Buyer Address")
     buyer_contract = st.number_input("Buyer Contract Details", step=1, min_value=0)
 
-    with st.expander("Printer details"):
+    # Printer Details
     printer_name = st.text_input("Printer Name")
     printer_address = st.text_input("Printer Address")
     printer_contract = st.number_input("Printer Contract Details", step=1, min_value=0)
 
-    with st.expander("Product details"):
+    # Product Details
     product_desc = st.text_input("Product Description")
 
-    with st.expander("Supplier details"):
+    # Supplier Details
     supplier_name = st.text_input("Supplier Name")
     supplier_address = st.text_input("Supplier Address")
     supplier_contract = st.number_input("Supplier Contract Details", step=1, min_value=0)
 
-    with st.expander("Agent details")
+    # Agent Details
     agent_name = st.text_input("Agent Name")
+    agent_address = st.text_input("Agent Address")
+    agent_contract = st.number_input("Agent Contract Details", step=1, min_value=0)
 
-    with st.expander("Invoice details"):
+    # Invoice Details
     payment_request_num = st.text_input("Payment Request Invoice Number")
     delivery_client_num = st.text_input("Delivery Client Invoice Number")
     billing_num = st.text_input("Billing Invoice Number")
@@ -81,13 +83,13 @@ with st.form("transaction_form"):
     deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
     invoice_status = st.selectbox("Invoice Status", ["Approved", "Disapproved"])
 
-    with st.expander("Date details"):
+    # Date Details
     year = st.number_input("Year", step=1, min_value=2000, max_value=2100)
     quarter = st.number_input("Quarter", step=1, min_value=1, max_value=4)
     month = st.number_input("Month", step=1, min_value=1, max_value=12)
     day = st.number_input("Day", step=1, min_value=1, max_value=31)
 
-    with st.expander("Revenue details"):
+    # Revenue Details
     price_per_item = st.number_input("Price Per Item", step=0.01, min_value=0.0)
     cost_per_item = st.number_input("Cost Per Item", step=0.01, min_value=0.0)
     print_per_item = st.number_input("Print Per Item", step=0.01, min_value=0.0)
