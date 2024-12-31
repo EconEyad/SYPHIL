@@ -106,7 +106,7 @@ with st.form("transaction_form"):
             # Insert or get ID for Buyer
             c.execute("""
                 INSERT INTO Buyer (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name) DO NOTHING
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
             """, (buyer_name, buyer_address, buyer_contract))
             conn.commit()
             c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
@@ -115,7 +115,7 @@ with st.form("transaction_form"):
             # Insert or get ID for Printer
             c.execute("""
                 INSERT INTO Printer (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name) DO NOTHING
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
             """, (printer_name, printer_address, printer_contract))
             conn.commit()
             c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
@@ -133,7 +133,7 @@ with st.form("transaction_form"):
             # Insert or get ID for Supplier
             c.execute("""
                 INSERT INTO Supplier (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name) DO NOTHING
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
             """, (supplier_name, supplier_address, supplier_contract))
             conn.commit()
             c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
@@ -142,7 +142,7 @@ with st.form("transaction_form"):
             # Insert or get ID for Agent
             c.execute("""
                 INSERT INTO Agent (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name) DO NOTHING
+                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
             """, (agent_name, agent_address, agent_contract))
             conn.commit()
             c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name, agent_address))
