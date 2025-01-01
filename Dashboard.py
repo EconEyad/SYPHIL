@@ -52,14 +52,6 @@ st.title("Transaction Entry Dashboard")
 
 # Form to input transaction details
 with st.form("transaction_form"):
-    # Revenue Details
-    price_per_item = st.number_input("Price Per Item", step=0.01, min_value=0.0)
-    cost_per_item = st.number_input("Cost Per Item", step=0.01, min_value=0.0)
-    print_per_item = st.number_input("Print Per Item", step=0.01, min_value=0.0)
-    commission_rate = st.number_input("Commission Rate", step=0.01, min_value=0.0)
-    top_up = st.number_input("Top up", step=0.01, min_valuue=0.0)
-    other_expenses = st.number_input("Other Expenses", step=0.01, min_value =0.0)
-    
     # Buyer Details
     buyer_name = st.text_input("Buyer Name")
     buyer_address = st.text_input("Buyer Address")
@@ -80,98 +72,194 @@ with st.form("transaction_form"):
 
     # Agent Details
     agent_name = st.text_input("Agent Name")
-    agent_address = st.text_input("Agent Address")
-    agent_contract = st.number_input("Agent Contract Details", step=1, min_value=0)
+
+    # Revenue Details
+    price_per_item = st.number_input("Price Per Item", step=0.01, min_value=0.0)
+    cost_per_item = st.number_input("Cost Per Item", step=0.01, min_value=0.0)
+    print_per_item = st.number_input("Print Per Item", step=0.01, min_value=0.0)
+    commission_rate = st.number_input("Commission Rate", step=0.01, min_value=0.0)
+    top_up = st.number_input("Top Up Expenses", step=0.01, min_value =0.0)
+    other_expenses = st.number_input("Other Expenses", step=0.01, min_value =0.0)
+
+    quotation_num = st.text_input("Qoutation Invoice Number")
+
+    invoice_status = st.selectbox("Invoice Status", ["Approved", "Disapproved"])
+
+    if invoice_status == "Approved":
+        # Invoice Details
+        payment_request_num = st.text_input("Payment Request Invoice Number")
+        delivery_client_num = st.text_input("Delivery Client Invoice Number")
+        billing_num = st.text_input("Billing Invoice Number")
+        collection_num = st.text_input("Collection Invoice Number")
+        deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
+
+        #Revenue Details
+        production_start_date = st.number_input("Production Start Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
+        delivery_date = st.number_input("Delivery Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
+        billing_date = st.number_input("Billing Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
+        payment_date = st.number_input("Payment Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
+
+    else:
+        payment_request_num = None
+        delivery_client_num = None
+        billing_num = None
+        collection_num = None
+        deposit_cheque_num = None
+
+        #Revenue Details
+        production_start_date = None
+        delivery_date = None
+        billing_date = None
+        payment_date = None
+
     
-    quotation_request_num = st.text_input("Quotation Invoice Number")
-
-    # Conditioning on the status
-    invoice_status = st.selectbox("Invoice Status", ["Approved", "Disapproved"])
-
-    # Invoice Details
-    payment_request_num = st.text_input("Payment Request Invoice Number")
-    delivery_client_num = st.text_input("Delivery Client Invoice Number")
-    billing_num = st.text_input("Billing Invoice Number")
-    collection_num = st.text_input("Collection Invoice Number")
-    deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
-    invoice_status = st.selectbox("Invoice Status", ["Approved", "Disapproved"])
-
-    #Revenue Details
-    production_start_date = st.number_input("Production Start Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-    delivery_date = st.number_input("Delivery Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-    billing_date = st.number_input("Billing Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-    payment_date = st.number_input("Payment Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-
     submitted = st.form_submit_button("Submit Transaction")
 
     if submitted:
         try:
+            if invoice_status == "Approved":
             # Insert or get ID for Buyer
-            c.execute("""
-                INSERT INTO Buyer (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-            """, (buyer_name, buyer_address, buyer_contract))
-            conn.commit()
-            c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-            buyer_id = c.fetchone()[0]
+                c.execute("""
+                    INSERT INTO Buyer (Name, Address, Contract_details)
+                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                """, (buyer_name, buyer_address, buyer_contract))
+                conn.commit()
+                c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
+                buyer_id = c.fetchone()[0]
 
-            # Insert or get ID for Printer
-            c.execute("""
-                INSERT INTO Printer (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-            """, (printer_name, printer_address, printer_contract))
-            conn.commit()
-            c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-            printer_id = c.fetchone()[0]
+                # Insert or get ID for Printer
+                c.execute("""
+                    INSERT INTO Printer (Name, Address, Contract_details)
+                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                """, (printer_name, printer_address, printer_contract))
+                conn.commit()
+                c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
+                printer_id = c.fetchone()[0]
 
-            # Insert or get ID for Product
-            c.execute("""
-                INSERT INTO Product (Item_desc)
-                VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
-            """, (product_desc,))
-            conn.commit()
-            c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-            product_id = c.fetchone()[0]
+                # Insert or get ID for Product
+                c.execute("""
+                    INSERT INTO Product (Item_desc)
+                    VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
+                """, (product_desc,))
+                conn.commit()
+                c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
+                product_id = c.fetchone()[0]
 
-            # Insert or get ID for Supplier
-            c.execute("""
-                INSERT INTO Supplier (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-            """, (supplier_name, supplier_address, supplier_contract))
-            conn.commit()
-            c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-            supplier_id = c.fetchone()[0]
+                # Insert or get ID for Supplier
+                c.execute("""
+                    INSERT INTO Supplier (Name, Address, Contract_details)
+                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                """, (supplier_name, supplier_address, supplier_contract))
+                conn.commit()
+                c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
+                supplier_id = c.fetchone()[0]
 
-            # Insert or get ID for Agent
-            c.execute("""
-                INSERT INTO Agent (Name, Address, Contract_details)
-                VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-            """, (agent_name, agent_address, agent_contract))
-            conn.commit()
-            c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name, agent_address))
-            agent_id = c.fetchone()[0]
+                # Insert or get ID for Agent
+                c.execute("""
+                    INSERT INTO Agent (Name)
+                    VALUES (%s) ON CONFLICT (Name,) DO NOTHING
+                """, (agent_name,))
+                conn.commit()
+                c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
+                agent_id = c.fetchone()[0]
 
-            # Insert Invoice
-            c.execute("""
-                INSERT INTO Invoice (Quotation_request_num, Payment_request_num, Delivery_client_num, Billing_num, Collection_num, Deposit_cheque_num, Status)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                # Insert Invoice
+                c.execute("""
+                    INSERT INTO Invoice (Quotation_num, Payment_request_num, Delivery_client_num, Billing_num, Collection_num, Deposit_cheque_num, Status)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    RETURNING ID
+                """, (quotation_num, payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
+                conn.commit()
+                invoice_id = c.fetchone()[0]
+
+                # Insert into Revenue
+                c.execute("""
+                    INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
+                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, top_up, 
+                                        other_expenses, Production_start_date, Delivery_date, Billing_date, Payment_date)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
+                    price_per_item, cost_per_item, print_per_item, commission_rate,
+                    top_up, other_expenses, production_start_date, delivery_date, billing_date, payment_date))
+                conn.commit()
+
+            else:
+                c.execute("""
+                    INSERT INTO Buyer (Name, Address, Contract_details)
+                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                """, (buyer_name, buyer_address, buyer_contract))
+                conn.commit()
+                c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
+                buyer_id = c.fetchone()[0]
+
+                # Insert or get ID for Printer
+                c.execute("""
+                    INSERT INTO Printer (Name, Address, Contract_details)
+                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                """, (printer_name, printer_address, printer_contract))
+                conn.commit()
+                c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
+                printer_id = c.fetchone()[0]
+
+                # Insert or get ID for Product
+                c.execute("""
+                    INSERT INTO Product (Item_desc)
+                    VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
+                """, (product_desc,))
+                conn.commit()
+                c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
+                product_id = c.fetchone()[0]
+
+                # Insert or get ID for Supplier
+                c.execute("""
+                    INSERT INTO Supplier (Name, Address, Contract_details)
+                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                """, (supplier_name, supplier_address, supplier_contract))
+                conn.commit()
+                c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
+                supplier_id = c.fetchone()[0]
+
+                # Insert or get ID for Agent
+                c.execute("""
+                    INSERT INTO Agent (Name)
+                    VALUES (%s) ON CONFLICT (Name,) DO NOTHING
+                """, (agent_name,))
+                conn.commit()
+                c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
+                agent_id = c.fetchone()[0]
+
+                # Insert or get ID for invoice
+                c.execute("""
+                INSERT INTO Invoice (Quotation_num, Status)
+                VALUES (%s, %s)
                 RETURNING ID
-            """, (quotation_request_num, payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
-            conn.commit()
-            invoice_id = c.fetchone()[0]
+                """, (quotation_num, invoice_status))
+                conn.commit()
+                invoice_id = c.fetchone()[0]
 
-            # Insert into Revenue
-            c.execute("""
+                c.execute("""
                 INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice, ID_date,
-                                     Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, Other_Expenses,
-                                     Production_start_date, Delivery_date, Billing_date, Payment_date)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id, date_id,
-                  price_per_item, cost_per_item, print_per_item, commission_rate, top_up, other_expenses,
-                  production_start_date, delivery_date, billing_date, payment_date))
-            conn.commit()
+                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, top_up, 
+                                        other_expenses)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
+                    price_per_item, cost_per_item, print_per_item, commission_rate,
+                    top_up, other_expenses))
+                conn.commit()
 
-            st.success("Transaction submitted successfully!")
+                payment_request_num = None
+                delivery_client_num = None
+                billing_num = None
+                collection_num = None
+                deposit_cheque_num = None
+
+                production_start_date = None
+                delivery_date = None
+                billing_date = None
+                payment_date = None
+                invoice_id = None 
+
+                st.success("Transaction submitted successfully!")
 
         except Exception as e:
             conn.rollback()  # Roll back transaction on error
