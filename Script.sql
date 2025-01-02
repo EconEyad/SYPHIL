@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Printer (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
-            Contract_details INT NOT null,
+            Contract_details INT NOT NULL,
             CONSTRAINT printer_unique_name UNIQUE (Name, Address) 
         );
 
@@ -59,7 +59,6 @@ CREATE TABLE IF NOT EXISTS Revenue (
             ID_agent INT NOT NULL REFERENCES Agent(ID),
             ID_supplier INT NOT NULL REFERENCES Supplier(ID),
             ID_invoice INT NOT NULL REFERENCES Invoice(ID),
-            ID_date INT NOT NULL REFERENCES Date(ID),
             Price_per_item REAL NOT NULL,
             Cost_per_item REAL NOT NULL,
             Print_per_item REAL NOT NULL,
