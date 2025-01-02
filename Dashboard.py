@@ -108,10 +108,10 @@ with st.form("transaction_form"):
         deposit_cheque_num = None
 
         #Revenue Details
-        production_start_date = 0
-        delivery_date = 0
-        billing_date = 0
-        payment_date = 0
+        production_start_date = None
+        delivery_date = None
+        billing_date = None
+        payment_date = None
 
     
     submitted = st.form_submit_button("Submit Transaction")
@@ -301,10 +301,10 @@ with st.form("transaction_form"):
                 billing_num = None
                 collection_num = None
                 deposit_cheque_num = None
-                production_start_date = 0
-                delivery_date = 0
-                billing_date = 0
-                payment_date = 0
+                production_start_date = None
+                delivery_date = None
+                billing_date = None
+                payment_date = None
                 invoice_id = None 
 
             st.success("Transaction submitted successfully!")
