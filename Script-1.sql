@@ -20,5 +20,4 @@ SELECT * FROM Product;
 SELECT * FROM Supplier;
 SELECT * FROM Agent;
 SELECT * FROM Invoice;
-SELECT * FROM Date;
 SELECT * FROM Revenue;

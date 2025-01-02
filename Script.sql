@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Printer (
 
 CREATE TABLE IF NOT EXISTS Product (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
-            Item_desc TEXT NOT null,
+            Item_desc TEXT NOT NULL,
             CONSTRAINT product_unique_name UNIQUE (Item_desc) 
 
         );
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS Agent (
 CREATE TABLE IF NOT EXISTS Invoice (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Quotation_num TEXT,
-            Payment_request_num TEXT,
-            Delivery_client_num TEXT,
-            Billing_num TEXT,
-            Collection_num TEXT,
-            Deposit_cheque_num TEXT,
+            Payment_request_num TEXT DEFAULT NULL,
+            Delivery_client_num TEXT DEFAULT NULL,
+            Billing_num TEXT DEFAULT NULL,
+            Collection_num TEXT DEFAULT NULL,
+            Deposit_cheque_num TEXT DEFAULT NULL,
             Status TEXT NOT NULL CHECK(Status IN ('Approved', 'Disapproved'))
         );
 
@@ -66,9 +66,9 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Top_up REAL NOT NULL,
             Other_expenses REAL NOT NULL,
             Quantity REAL NOT NULL,
-            Production_start_date BIGINT,
-            Delivery_date BIGINT,
-            Billing_date BIGINT,
-            Payment_date BIGINT
+            Production_start_date BIGINT DEFAULT NULL,
+            Delivery_date BIGINT DEFAULT NULL,
+            Billing_date BIGINT DEFAULT NULL,
+            Payment_date BIGINT DEFAULT NULL
         )
   
