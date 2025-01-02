@@ -101,24 +101,32 @@ with st.form("transaction_form"):
 
         #Revenue Details
         production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
-        delivery_date1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
-        delivery_date2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
-        delivery_date3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
-        delivery_date4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
-        delivery_date5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
+        delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
+        delivery_date_2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
+        delivery_date_3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
+        delivery_date_4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
+        delivery_date_5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
         billing_date = st.text_input("Billing Date (YYYYMMDD)")
         payment_date = st.text_input("Payment Date (YYYYMMDD)")
 
     else:
         payment_request_num = None
-        delivery_client_num = None
+        delivery_client_num1 = None
+        delivery_client_num2 = None
+        delivery_client_num3 = None
+        delivery_client_num4 = None
+        delivery_client_num5 = None
         billing_num = None
         collection_num = None
         deposit_cheque_num = None
 
         #Revenue Details
         production_start_date = None
-        delivery_date = None
+        delivery_date_1 = None
+        delivery_date_2 = None
+        delivery_date_3 = None
+        delivery_date_4 = None
+        delivery_date_5 = None
         billing_date = None
         payment_date = None
 
@@ -214,7 +222,7 @@ with st.form("transaction_form"):
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
                     price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses, quantity, production_start_date, delivery_date1, delivery_date2, delivery_date3, delivery_date4, delivery_date5, billing_date, payment_date))
+                    top_up, other_expenses, quantity, production_start_date, delivery_date_1, delivery_date_2, delivery_date_3, delivery_date_4, delivery_date_5, billing_date, payment_date))
                 conn.commit()
 
             else:
@@ -306,12 +314,20 @@ with st.form("transaction_form"):
                 conn.commit()
 
                 payment_request_num = None
-                delivery_client_num = None
+                delivery_client_num1 = None
+                delivery_client_num2 = None
+                delivery_client_num3 = None
+                delivery_client_num4 = None
+                delivery_client_num5 = None
                 billing_num = None
                 collection_num = None
                 deposit_cheque_num = None
                 production_start_date = None
-                delivery_date = None
+                delivery_date_1 = None
+                delivery_date_2 = None
+                delivery_date_3 = None
+                delivery_date_4 = None
+                delivery_date_5 = None
                 billing_date = None
                 payment_date = None
                 invoice_id = None 
