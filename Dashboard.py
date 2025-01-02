@@ -223,7 +223,7 @@ with st.form("transaction_form"):
                 # Insert or get ID for Agent
                 c.execute("""
                     INSERT INTO Agent (Name)
-                    VALUES (%s) ON CONFLICT (Name,) DO NOTHING
+                    VALUES (%s) ON CONFLICT (Name) DO NOTHING
                 """, (agent_name,))
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
@@ -253,7 +253,6 @@ with st.form("transaction_form"):
                 billing_num = None
                 collection_num = None
                 deposit_cheque_num = None
-
                 production_start_date = None
                 delivery_date = None
                 billing_date = None
