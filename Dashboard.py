@@ -126,7 +126,7 @@ with st.form("transaction_form"):
                 """, (buyer_name, buyer_address, buyer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     buyer_id = result[0]
                 else:
@@ -140,7 +140,7 @@ with st.form("transaction_form"):
                 """, (printer_name, printer_address, printer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     printer_id = result[0]
                 else:
@@ -154,7 +154,7 @@ with st.form("transaction_form"):
                 """, (product_desc,))
                 conn.commit()
                 c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     product_id = result[0]
                 else:
@@ -168,7 +168,7 @@ with st.form("transaction_form"):
                 """, (supplier_name, supplier_address, supplier_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     supplier_id = result[0]
                 else:
@@ -182,7 +182,7 @@ with st.form("transaction_form"):
                 """, (agent_name,))
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     agent_id = result[0]
                 else:
@@ -196,7 +196,7 @@ with st.form("transaction_form"):
                     RETURNING ID
                 """, (quotation_num, payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
                 conn.commit()
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     invoice_id = result[0]
                 else:
@@ -221,7 +221,7 @@ with st.form("transaction_form"):
                 """, (buyer_name, buyer_address, buyer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     buyer_id = result[0]
                 else:
@@ -235,7 +235,7 @@ with st.form("transaction_form"):
                 """, (printer_name, printer_address, printer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     printer_id = result[0]
                 else:
@@ -249,7 +249,7 @@ with st.form("transaction_form"):
                 """, (product_desc,))
                 conn.commit()
                 c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     product_id = result[0]
                 else:
@@ -263,7 +263,7 @@ with st.form("transaction_form"):
                 """, (supplier_name, supplier_address, supplier_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     supplier = result[0]
                 else:
@@ -277,7 +277,7 @@ with st.form("transaction_form"):
                 """, (agent_name,))
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     agent_id = result[0]
                 else:
@@ -291,7 +291,7 @@ with st.form("transaction_form"):
                 RETURNING ID
                 """, (quotation_num, invoice_status))
                 conn.commit()
-                result = c.fectchone()
+                result = c.fetchone()
                 if result:
                     invoice_id = result[0]
                 else:
