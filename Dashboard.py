@@ -266,7 +266,7 @@ with st.form("transaction_form"):
                     VALUES (%s) ON CONFLICT (Name) DO NOTHING
                 """, (agent_name,))
                 conn.commit()
-                c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
+                c.execute("SELECT ID FROM Agent WHERE Name = %s", (agent_name,))
                 result = c.fetchone()
                 if result is None:
                     st.error("No matching record found in Agent table.")
