@@ -21,3 +21,10 @@ SELECT * FROM Supplier;
 SELECT * FROM Agent;
 SELECT * FROM Invoice;
 SELECT * FROM Revenue;
+
+
+INSERT INTO Buyer (Name, Address, Contact_details) VALUES ('John Doe', '123 Main St', 09544479901);
+INSERT INTO Printer (Name, Address, Contact_details) VALUES ('Printer Inc.', '456 Market St', 9876543210);
+INSERT INTO Product (Item_desc) VALUES ('Product A');
+INSERT INTO Supplier (Name, Address, Contact_details) VALUES ('Supplier Co.', '789 Broadway', 5555555555);
+INSERT INTO Agent (Name) VALUES ('Agent Smith');

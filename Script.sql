@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS Buyer (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
-            Contact_details BIGINT NOT NULL,
+            Contact_details TEXT NOT NULL,
             CONSTRAINT buyer_unique_name UNIQUE (Name, Address) 
         );
 
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Printer (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
-            Contact_details BIGINT NOT NULL,
+            Contact_details TEXT NOT NULL,
             CONSTRAINT printer_unique_name UNIQUE (Name, Address) 
         );
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Supplier (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
-            Contact_details BIGINT NOT NULL,
+            Contact_details TEXT NOT NULL,
             CONSTRAINT supplier_unique_name UNIQUE (Name, Address) 
 
         );
