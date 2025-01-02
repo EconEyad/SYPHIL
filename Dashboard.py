@@ -95,10 +95,10 @@ with st.form("transaction_form"):
         deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
 
         #Revenue Details
-        production_start_date = st.number_input("Production Start Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
-        delivery_date = st.number_input("Delivery Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
-        billing_date = st.number_input("Billing Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
-        payment_date = st.number_input("Payment Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
+        production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
+        delivery_date = st.text_input("Delivery Date (YYYYMMDD)")
+        billing_date = st.text_input("Billing Date (YYYYMMDD)")
+        payment_date = st.text_input("Payment Date (YYYYMMDD)")
 
     else:
         payment_request_num = None
