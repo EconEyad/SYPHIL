@@ -66,9 +66,9 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Top_up REAL NOT NULL,
             Other_expenses REAL NOT NULL,
             Quantity REAL NOT NULL,
-            Production_start_date BIGINT DEFAULT NULL,
-            Delivery_date BIGINT DEFAULT NULL,
-            Billing_date BIGINT DEFAULT NULL,
-            Payment_date BIGINT DEFAULT NULL
+            Production_start_date TEXT DEFAULT NULL,
+            Delivery_date TEXT DEFAULT NULL,
+            Billing_date TEXT DEFAULT NULL,
+            Payment_date TEXT DEFAULT NULL
         )
   
