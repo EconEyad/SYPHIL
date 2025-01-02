@@ -26,28 +26,6 @@ def get_postgres_connection():
 conn = get_postgres_connection()
 c = conn.cursor()
 
-import streamlit as st
-import psycopg2
-from urllib.parse import urlparse
-
-# Use DATABASE_URL from Streamlit secrets
-DATABASE_URL = st.secrets["DATABASE_URL"]
-
-# Function to connect to PostgreSQL
-def get_postgres_connection():
-    parsed_url = urlparse(DATABASE_URL)
-    return psycopg2.connect(
-        dbname=parsed_url.path[1:],  # Removes the leading "/"
-        user=parsed_url.username,
-        password=parsed_url.password,
-        host=parsed_url.hostname,
-        port=parsed_url.port
-    )
-
-# Connect to the PostgreSQL database
-conn = get_postgres_connection()
-c = conn.cursor()
-
 st.title("Transaction Entry Dashboard")
 
 # Form to input transaction details
