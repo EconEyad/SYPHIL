@@ -95,10 +95,10 @@ with st.form("transaction_form"):
         deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
 
         #Revenue Details
-        production_start_date = st.number_input("Production Start Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-        delivery_date = st.number_input("Delivery Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-        billing_date = st.number_input("Billing Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
-        payment_date = st.number_input("Payment Date (YYYYMMDD)", step=1, min_value=20000000, max_value=21000000)
+        production_start_date = st.number_input("Production Start Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
+        delivery_date = st.number_input("Delivery Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
+        billing_date = st.number_input("Billing Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
+        payment_date = st.number_input("Payment Date (YYYYMMDD)", step=1, min_value=0, max_value=21000000)
 
     else:
         payment_request_num = None
@@ -108,10 +108,10 @@ with st.form("transaction_form"):
         deposit_cheque_num = None
 
         #Revenue Details
-        production_start_date = None
-        delivery_date = None
-        billing_date = None
-        payment_date = None
+        production_start_date = 0
+        delivery_date = 0
+        billing_date = 0
+        payment_date = 0
 
     
     submitted = st.form_submit_button("Submit Transaction")
@@ -302,9 +302,9 @@ with st.form("transaction_form"):
                 collection_num = None
                 deposit_cheque_num = None
                 production_start_date = None
-                delivery_date = None
-                billing_date = None
-                payment_date = None
+                delivery_date = 0
+                billing_date = 0
+                payment_date = 0
                 invoice_id = None 
 
             st.success("Transaction submitted successfully!")
