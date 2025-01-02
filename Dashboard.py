@@ -127,11 +127,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
                 result = c.fetchone()
-                if result:
-                    buyer_id = result[0]
-                else:
-                        st.error("Buyer not found in the database. Please ensure the Buyer details are correct.")
-                        raise Exception("Buyer not found.")
+                if result is None:
+                    st.error("No matching record found in Buyer table.")
+                    raise Exception("Buyer not found in database.")
+                buyer_id = result[0]
 
                 # Insert or get ID for Printer
                 c.execute("""
@@ -141,11 +140,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
                 result = c.fetchone()
-                if result:
-                    printer_id = result[0]
-                else:
-                        st.error("Printer not found in the database. Please ensure the Printer details are correct.")
-                        raise Exception("Printer not found.")
+                if result is None:
+                    st.error("No matching record found in Printer table.")
+                    raise Exception("Printer not found in database.")
+                printer_id = result[0]
 
                 # Insert or get ID for Product
                 c.execute("""
@@ -155,11 +153,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
                 result = c.fetchone()
-                if result:
-                    product_id = result[0]
-                else:
-                    st.error("Product not found in the database. Please ensure the Product details are correct.")
-                    raise Exception("Product not found.")
+                if result is None:
+                    st.error("No matching record found in Product table.")
+                    raise Exception("Product not found in database.")
+                product_id = result[0]
 
                 # Insert or get ID for Supplier
                 c.execute("""
@@ -169,11 +166,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
                 result = c.fetchone()
-                if result:
-                    supplier_id = result[0]
-                else:
-                    st.error("Supplier not found in the database. Please ensure the Supplier details are correct.")
-                    raise Exception("Supplier not found.")
+                if result is None:
+                    st.error("No matching record found in Supplier table.")
+                    raise Exception("Supplier not found in database.")
+                supplier_id = result[0]
 
                 # Insert or get ID for Agent
                 c.execute("""
@@ -181,13 +177,12 @@ with st.form("transaction_form"):
                     VALUES (%s) ON CONFLICT (Name) DO NOTHING
                 """, (agent_name,))
                 conn.commit()
-                c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
+                c.execute("SELECT ID FROM Agent WHERE Name = %s", (agent_name,))
                 result = c.fetchone()
-                if result:
-                    agent_id = result[0]
-                else:
-                    st.error("Agent not found in the database. Please ensure the Agent details are correct.")
-                    raise Exception("Agent not found.")
+                if result is None:
+                    st.error("No matching record found in Agent table.")
+                    raise Exception("Agent not found in database.")
+                agent_id = result[0]
 
                 # Insert Invoice
                 c.execute("""
@@ -197,11 +192,10 @@ with st.form("transaction_form"):
                 """, (quotation_num, payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
                 conn.commit()
                 result = c.fetchone()
-                if result:
-                    invoice_id = result[0]
-                else:
-                    st.error("Invoice not found in the database. Please ensure the Invoice details are correct.")
-                    raise Exception("Invoice not found.")
+                if result is None:
+                    st.error("No matching record found in Invoice table.")
+                    raise Exception("Invoice not found in database.")
+                invoice_id = result[0]
 
                 # Insert into Revenue
                 c.execute("""
@@ -222,11 +216,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
                 result = c.fetchone()
-                if result:
-                    buyer_id = result[0]
-                else:
-                    st.error("Buyer not found in the database. Please ensure the Buyer details are correct.")
-                    raise Exception("Buyer not found.")
+                if result is None:
+                    st.error("No matching record found in Buyer table.")
+                    raise Exception("Buyer not found in database.")
+                buyer_id = result[0]
 
                 # Insert or get ID for Printer
                 c.execute("""
@@ -236,11 +229,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
                 result = c.fetchone()
-                if result:
-                    printer_id = result[0]
-                else:
-                    st.error("Printer not found in the database. Please ensure the Printer details are correct.")
-                    raise Exception("Printer not found.")
+                if result is None:
+                    st.error("No matching record found in Printer table.")
+                    raise Exception("Printer not found in database.")
+                printer_id = result[0]
 
                 # Insert or get ID for Product
                 c.execute("""
@@ -250,11 +242,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
                 result = c.fetchone()
-                if result:
-                    product_id = result[0]
-                else:
-                    st.error("Product not found in the database. Please ensure the Product details are correct.")
-                    raise Exception("Product not found.")
+                if result is None:
+                    st.error("No matching record found in Product table.")
+                    raise Exception("Product not found in database.")
+                product_id = result[0]
 
                 # Insert or get ID for Supplier
                 c.execute("""
@@ -264,11 +255,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
                 result = c.fetchone()
-                if result:
-                    supplier = result[0]
-                else:
-                    st.error("Supplier not found in the database. Please ensure the Supplier details are correct.")
-                    raise Exception("Supplier not found.")
+                if result is None:
+                    st.error("No matching record found in Supplier table.")
+                    raise Exception("Supplier not found in database.")
+                supplier_id = result[0]
 
                 # Insert or get ID for Agent
                 c.execute("""
@@ -278,11 +268,10 @@ with st.form("transaction_form"):
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
                 result = c.fetchone()
-                if result:
-                    agent_id = result[0]
-                else:
-                    st.error("Agent not found in the database. Please ensure the Agent details are correct.")
-                    raise Exception("Agent not found.")
+                if result is None:
+                    st.error("No matching record found in Agent table.")
+                    raise Exception("Agent not found in database.")
+                agent_id = result[0]
 
                 # Insert or get ID for invoice
                 c.execute("""
@@ -292,11 +281,10 @@ with st.form("transaction_form"):
                 """, (quotation_num, invoice_status))
                 conn.commit()
                 result = c.fetchone()
-                if result:
-                    invoice_id = result[0]
-                else:
-                    st.error("Invoice not found in the database. Please ensure the Invoice details are correct.")
-                    raise Exception("Invoice not found.")
+                if result is None:
+                    st.error("No matching record found in Invoice table.")
+                    raise Exception("Invoice not found in database.")
+                invoice_id = result[0]
 
                 c.execute("""
                 INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
