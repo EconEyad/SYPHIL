@@ -55,12 +55,12 @@ with st.form("transaction_form"):
     # Buyer Details
     buyer_name = st.text_input("Buyer Name")
     buyer_address = st.text_input("Buyer Address")
-    buyer_contract = st.number_input("Buyer Contract Details", step=1, min_value=0)
+    buyer_contact = st.number_input("Buyer Contact Details", step=1, min_value=0)
 
     # Printer Details
     printer_name = st.text_input("Printer Name")
     printer_address = st.text_input("Printer Address")
-    printer_contract = st.number_input("Printer Contract Details", step=1, min_value=0)
+    printer_contact = st.number_input("Printer Contact Details", step=1, min_value=0)
 
     # Product Details
     product_desc = st.text_input("Product Description")
@@ -68,7 +68,7 @@ with st.form("transaction_form"):
     # Supplier Details
     supplier_name = st.text_input("Supplier Name")
     supplier_address = st.text_input("Supplier Address")
-    supplier_contract = st.number_input("Supplier Contract Details", step=1, min_value=0)
+    supplier_contact = st.number_input("Supplier Contact Details", step=1, min_value=0)
 
     # Agent Details
     agent_name = st.text_input("Agent Name")
@@ -121,9 +121,9 @@ with st.form("transaction_form"):
             if invoice_status == "Approved":
             # Insert or get ID for Buyer
                 c.execute("""
-                    INSERT INTO Buyer (Name, Address, Contract_details)
+                    INSERT INTO Buyer (Name, Address, Contact_details)
                     VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (buyer_name, buyer_address, buyer_contract))
+                """, (buyer_name, buyer_address, buyer_contact))
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
                 result = c.fetchone()
@@ -135,9 +135,9 @@ with st.form("transaction_form"):
 
                 # Insert or get ID for Printer
                 c.execute("""
-                    INSERT INTO Printer (Name, Address, Contract_details)
+                    INSERT INTO Printer (Name, Address, Contact_details)
                     VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (printer_name, printer_address, printer_contract))
+                """, (printer_name, printer_address, printer_contact))
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
                 result = c.fetchone()
@@ -163,9 +163,9 @@ with st.form("transaction_form"):
 
                 # Insert or get ID for Supplier
                 c.execute("""
-                    INSERT INTO Supplier (Name, Address, Contract_details)
+                    INSERT INTO Supplier (Name, Address, Contact_details)
                     VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (supplier_name, supplier_address, supplier_contract))
+                """, (supplier_name, supplier_address, supplier_contact))
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
                 result = c.fetchone()
@@ -216,9 +216,9 @@ with st.form("transaction_form"):
 
             else:
                 c.execute("""
-                    INSERT INTO Buyer (Name, Address, Contract_details)
+                    INSERT INTO Buyer (Name, Address, Contact_details)
                     VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (buyer_name, buyer_address, buyer_contract))
+                """, (buyer_name, buyer_address, buyer_contact))
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
                 result = c.fetchone()
@@ -230,9 +230,9 @@ with st.form("transaction_form"):
 
                 # Insert or get ID for Printer
                 c.execute("""
-                    INSERT INTO Printer (Name, Address, Contract_details)
+                    INSERT INTO Printer (Name, Address, Contact_details)
                     VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (printer_name, printer_address, printer_contract))
+                """, (printer_name, printer_address, printer_contact))
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
                 result = c.fetchone()
@@ -258,9 +258,9 @@ with st.form("transaction_form"):
 
                 # Insert or get ID for Supplier
                 c.execute("""
-                    INSERT INTO Supplier (Name, Address, Contract_details)
+                    INSERT INTO Supplier (Name, Address, Contact_details)
                     VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (supplier_name, supplier_address, supplier_contract))
+                """, (supplier_name, supplier_address, supplier_contact))
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
                 result = c.fetchone()
