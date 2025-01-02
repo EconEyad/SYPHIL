@@ -126,7 +126,12 @@ with st.form("transaction_form"):
                 """, (buyer_name, buyer_address, buyer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-                buyer_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    buyer_id = result[0]
+                else:
+                        st.error("Buyer not found in the database. Please ensure the Buyer details are correct.")
+                        raise Exception("Buyer not found.")
 
                 # Insert or get ID for Printer
                 c.execute("""
@@ -135,7 +140,12 @@ with st.form("transaction_form"):
                 """, (printer_name, printer_address, printer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-                printer_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    printer_id = result[0]
+                else:
+                        st.error("Printer not found in the database. Please ensure the Printer details are correct.")
+                        raise Exception("Printer not found.")
 
                 # Insert or get ID for Product
                 c.execute("""
@@ -144,7 +154,12 @@ with st.form("transaction_form"):
                 """, (product_desc,))
                 conn.commit()
                 c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-                product_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    product_id = result[0]
+                else:
+                    st.error("Product not found in the database. Please ensure the Product details are correct.")
+                    raise Exception("Product not found.")
 
                 # Insert or get ID for Supplier
                 c.execute("""
@@ -153,7 +168,12 @@ with st.form("transaction_form"):
                 """, (supplier_name, supplier_address, supplier_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-                supplier_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    supplier_id = result[0]
+                else:
+                    st.error("Supplier not found in the database. Please ensure the Supplier details are correct.")
+                    raise Exception("Supplier not found.")
 
                 # Insert or get ID for Agent
                 c.execute("""
@@ -162,7 +182,12 @@ with st.form("transaction_form"):
                 """, (agent_name,))
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
-                agent_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    agent_id = result[0]
+                else:
+                    st.error("Agent not found in the database. Please ensure the Agent details are correct.")
+                    raise Exception("Agent not found.")
 
                 # Insert Invoice
                 c.execute("""
@@ -171,7 +196,12 @@ with st.form("transaction_form"):
                     RETURNING ID
                 """, (quotation_num, payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
                 conn.commit()
-                invoice_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    invoice_id = result[0]
+                else:
+                    st.error("Invoice not found in the database. Please ensure the Invoice details are correct.")
+                    raise Exception("Invoice not found.")
 
                 # Insert into Revenue
                 c.execute("""
@@ -191,7 +221,12 @@ with st.form("transaction_form"):
                 """, (buyer_name, buyer_address, buyer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-                buyer_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    buyer_id = result[0]
+                else:
+                    st.error("Buyer not found in the database. Please ensure the Buyer details are correct.")
+                    raise Exception("Buyer not found.")
 
                 # Insert or get ID for Printer
                 c.execute("""
@@ -200,7 +235,12 @@ with st.form("transaction_form"):
                 """, (printer_name, printer_address, printer_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-                printer_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    printer_id = result[0]
+                else:
+                    st.error("Printer not found in the database. Please ensure the Printer details are correct.")
+                    raise Exception("Printer not found.")
 
                 # Insert or get ID for Product
                 c.execute("""
@@ -209,7 +249,12 @@ with st.form("transaction_form"):
                 """, (product_desc,))
                 conn.commit()
                 c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-                product_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    product_id = result[0]
+                else:
+                    st.error("Product not found in the database. Please ensure the Product details are correct.")
+                    raise Exception("Product not found.")
 
                 # Insert or get ID for Supplier
                 c.execute("""
@@ -218,7 +263,12 @@ with st.form("transaction_form"):
                 """, (supplier_name, supplier_address, supplier_contract))
                 conn.commit()
                 c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-                supplier_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    supplier = result[0]
+                else:
+                    st.error("Supplier not found in the database. Please ensure the Supplier details are correct.")
+                    raise Exception("Supplier not found.")
 
                 # Insert or get ID for Agent
                 c.execute("""
@@ -227,7 +277,12 @@ with st.form("transaction_form"):
                 """, (agent_name,))
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
-                agent_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    agent_id = result[0]
+                else:
+                    st.error("Agent not found in the database. Please ensure the Agent details are correct.")
+                    raise Exception("Agent not found.")
 
                 # Insert or get ID for invoice
                 c.execute("""
@@ -236,7 +291,12 @@ with st.form("transaction_form"):
                 RETURNING ID
                 """, (quotation_num, invoice_status))
                 conn.commit()
-                invoice_id = c.fetchone()[0]
+                result = c.fectchone()
+                if result:
+                    invoice_id = result[0]
+                else:
+                    st.error("Invoice not found in the database. Please ensure the Invoice details are correct.")
+                    raise Exception("Invoice not found.")
 
                 c.execute("""
                 INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
