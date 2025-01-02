@@ -301,7 +301,7 @@ with st.form("transaction_form"):
                 billing_num = None
                 collection_num = None
                 deposit_cheque_num = None
-                production_start_date = None
+                production_start_date = 0
                 delivery_date = 0
                 billing_date = 0
                 payment_date = 0
