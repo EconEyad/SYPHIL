@@ -44,6 +44,10 @@ CREATE TABLE IF NOT EXISTS Invoice (
             Quotation_num TEXT,
             Payment_request_num TEXT DEFAULT NULL,
             Delivery_client_num TEXT DEFAULT NULL,
+            Delivery_client_num2 TEXT DEFAULT null,
+            Delivery_client_num3 TEXT DEFAULT NULL,
+            Delivery_client_num4 TEXT DEFAULT NULL,
+            Delivery_client_num5 TEXT DEFAULT NULL,
             Billing_num TEXT DEFAULT NULL,
             Collection_num TEXT DEFAULT NULL,
             Deposit_cheque_num TEXT DEFAULT NULL,
@@ -67,8 +71,11 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Other_expenses REAL NOT NULL,
             Quantity REAL NOT NULL,
             Production_start_date TEXT DEFAULT NULL,
-            Delivery_date TEXT DEFAULT NULL,
+            Delivery_date1 TEXT DEFAULT NULL,
+            Delivery_date2 TEXT DEFAULT NULL,
+            Delivery_date3 TEXT DEFAULT NULL,
+            Delivery_date4 TEXT DEFAULT NULL,
+            Delivery_date5 TEXT DEFAULT NULL,
             Billing_date TEXT DEFAULT NULL,
             Payment_date TEXT DEFAULT NULL
         )
-  
