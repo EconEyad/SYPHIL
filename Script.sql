@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS Buyer (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
-            Contract_details INT NOT null,
+            Contract_details INT NOT NULL,
             CONSTRAINT buyer_unique_name UNIQUE (Name, Address) 
         );
 
@@ -35,29 +35,21 @@ CREATE TABLE IF NOT EXISTS Supplier (
 CREATE TABLE IF NOT EXISTS Agent (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Name TEXT NOT NULL,
-            Address TEXT NOT NULL,
-            Contract_details INT NOT NULL,
-            CONSTRAINT agent_unique_name UNIQUE (Name, Address) 
+            CONSTRAINT agent_unique_name UNIQUE (Name) 
 
         );
 
 CREATE TABLE IF NOT EXISTS Invoice (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
-            Payment_request_num TEXT NOT NULL,
-            Delivery_client_num TEXT NOT NULL,
-            Billing_num TEXT NOT NULL,
-            Collection_num TEXT NOT NULL,
-            Deposit_cheque_num TEXT NOT NULL,
+            Quotation_num TEXT,
+            Payment_request_num TEXT,
+            Delivery_client_num TEXT,
+            Billing_num TEXT,
+            Collection_num TEXT,
+            Deposit_cheque_num TEXT,
             Status TEXT NOT NULL CHECK(Status IN ('Approved', 'Disapproved'))
         );
 
-CREATE TABLE IF NOT EXISTS Date (
-            ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
-            Year INT NOT NULL,
-            Quarter INT NOT NULL,
-            Month INT NOT NULL,
-            Day INT NOT NULL
-        );
 
 CREATE TABLE IF NOT EXISTS Revenue (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
@@ -72,9 +64,12 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Cost_per_item REAL NOT NULL,
             Print_per_item REAL NOT NULL,
             Commission_rate REAL NOT NULL,
-            Production_start_date INT NOT NULL,
-            Delivery_date INT NOT NULL,
-            Billing_date INT NOT NULL,
-            Payment_date INT NOT NULL
+            Top_up REAL NOT NULL,
+            Other_expenses REAL NOT NULL,
+            Quantity REAL NOT NULL,
+            Production_start_date INT,
+            Delivery_date INT,
+            Billing_date INT,
+            Payment_date INT
         )
   
