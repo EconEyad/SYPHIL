@@ -307,7 +307,7 @@ with st.form("transaction_form"):
                 payment_date = None
                 invoice_id = None 
 
-                st.success("Transaction submitted successfully!")
+            st.success("Transaction submitted successfully!")
 
         except Exception as e:
             conn.rollback()  # Roll back transaction on error
