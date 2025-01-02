@@ -89,14 +89,23 @@ with st.form("transaction_form"):
     if invoice_status == "Approved":
         # Invoice Details
         payment_request_num = st.text_input("Payment Request Invoice Number")
-        delivery_client_num = st.text_input("Delivery Client Invoice Number")
+        delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
+        delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
+        delivery_client_num3 = st.text_input("Delivery Client Invoice Number - third patch")
+        delivery_client_num4 = st.text_input("Delivery Client Invoice Number - fourth patch")
+        delivery_client_num5 = st.text_input("Delivery Client Invoice Number - fifth  patch")
+
         billing_num = st.text_input("Billing Invoice Number")
         collection_num = st.text_input("Collection Invoice Number")
         deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
 
         #Revenue Details
         production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
-        delivery_date = st.text_input("Delivery Date (YYYYMMDD)")
+        delivery_date1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
+        delivery_date2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
+        delivery_date3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
+        delivery_date4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
+        delivery_date5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
         billing_date = st.text_input("Billing Date (YYYYMMDD)")
         payment_date = st.text_input("Payment Date (YYYYMMDD)")
 
@@ -186,10 +195,10 @@ with st.form("transaction_form"):
 
                 # Insert Invoice
                 c.execute("""
-                    INSERT INTO Invoice (Quotation_num, Payment_request_num, Delivery_client_num, Billing_num, Collection_num, Deposit_cheque_num, Status)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO Invoice (Quotation_num, Payment_request_num, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num, Deposit_cheque_num, Status)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s)
                     RETURNING ID
-                """, (quotation_num, payment_request_num, delivery_client_num, billing_num, collection_num, deposit_cheque_num, invoice_status))
+                """, (quotation_num, payment_request_num, delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num, deposit_cheque_num, invoice_status))
                 conn.commit()
                 result = c.fetchone()
                 if result is None:
@@ -201,11 +210,11 @@ with st.form("transaction_form"):
                 c.execute("""
                     INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
                                         Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
-                                        Other_expenses, Quantity, Production_start_date, Delivery_date, Billing_date, Payment_date)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                        Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Payment_date)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
                     price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses, quantity, production_start_date, delivery_date, billing_date, payment_date))
+                    top_up, other_expenses, quantity, production_start_date, delivery_date1, delivery_date2, delivery_date3, delivery_date4, delivery_date5, billing_date, payment_date))
                 conn.commit()
 
             else:
