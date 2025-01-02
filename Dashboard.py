@@ -80,6 +80,7 @@ with st.form("transaction_form"):
     commission_rate = st.number_input("Commission Rate", step=0.01, min_value=0.0)
     top_up = st.number_input("Top Up Expenses", step=0.01, min_value =0.0)
     other_expenses = st.number_input("Other Expenses", step=0.01, min_value =0.0)
+    quantity = st.number_input("Quantity", step=1, min_value = 0)
 
     quotation_num = st.text_input("Qoutation Invoice Number")
 
@@ -157,7 +158,7 @@ with st.form("transaction_form"):
                 # Insert or get ID for Agent
                 c.execute("""
                     INSERT INTO Agent (Name)
-                    VALUES (%s) ON CONFLICT (Name,) DO NOTHING
+                    VALUES (%s) ON CONFLICT (Name) DO NOTHING
                 """, (agent_name,))
                 conn.commit()
                 c.execute("SELECT ID FROM Agent WHERE Name = %s AND Address = %s", (agent_name,))
@@ -175,12 +176,12 @@ with st.form("transaction_form"):
                 # Insert into Revenue
                 c.execute("""
                     INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
-                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, top_up, 
-                                        other_expenses, Production_start_date, Delivery_date, Billing_date, Payment_date)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
+                                        Other_expenses, Quantity, Production_start_date, Delivery_date, Billing_date, Payment_date)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
                     price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses, production_start_date, delivery_date, billing_date, payment_date))
+                    top_up, other_expenses, quantity, production_start_date, delivery_date, billing_date, payment_date))
                 conn.commit()
 
             else:
@@ -238,13 +239,13 @@ with st.form("transaction_form"):
                 invoice_id = c.fetchone()[0]
 
                 c.execute("""
-                INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice, ID_date,
-                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, top_up, 
-                                        other_expenses)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
+                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
+                                        Other_expenses, Quantity)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
                     price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses))
+                    top_up, other_expenses, quantity))
                 conn.commit()
 
                 payment_request_num = None
