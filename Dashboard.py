@@ -55,12 +55,12 @@ with st.form("transaction_form"):
     # Buyer Details
     buyer_name = st.text_input("Buyer Name")
     buyer_address = st.text_input("Buyer Address")
-    buyer_contact = st.number_input("Buyer Contact Details", step=1, min_value=0)
+    buyer_contact = st.text_input("Buyer Contact Details")
 
     # Printer Details
     printer_name = st.text_input("Printer Name")
     printer_address = st.text_input("Printer Address")
-    printer_contact = st.number_input("Printer Contact Details", step=1, min_value=0)
+    printer_contact = st.text_input("Printer Contact Details")
 
     # Product Details
     product_desc = st.text_input("Product Description")
@@ -68,7 +68,7 @@ with st.form("transaction_form"):
     # Supplier Details
     supplier_name = st.text_input("Supplier Name")
     supplier_address = st.text_input("Supplier Address")
-    supplier_contact = st.number_input("Supplier Contact Details", step=1, min_value=0)
+    supplier_contact = st.text_input("Supplier Contact Details")
 
     # Agent Details
     agent_name = st.text_input("Agent Name")
