@@ -55,7 +55,12 @@ CREATE TABLE IF NOT EXISTS Invoice (
             Delivery_client_num5 TEXT DEFAULT NULL,
             
             Billing_num TEXT DEFAULT NULL,
-            Collection_num TEXT DEFAULT NULL,
+            Collection_num1 TEXT DEFAULT NULL,
+            Collection_num2 TEXT DEFAULT NULL,
+            Collection_num3 TEXT DEFAULT NULL,
+            Collection_num4 TEXT DEFAULT NULL,
+            Collection_num5 TEXT DEFAULT NULL,
+            
             Deposit_cheque_num TEXT DEFAULT NULL,
             Status TEXT NOT NULL CHECK(Status IN ('Approved', 'Disapproved'))
         );
@@ -88,6 +93,4 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Payment_date3 TEXT DEFAULT NULL,
             Payment_date4 TEXT DEFAULT NULL,
             Payment_date5 TEXT DEFAULT NULL
-
-            
         );
