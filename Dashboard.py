@@ -88,65 +88,70 @@ with st.form("transaction_form"):
     if invoice_status == "Approved":
         # Invoice Details
         with st.container():
-            st.markdown("### Payment Requesst Invoice Numbers")
-            payment_request_num1 = st.text_input("Payment Request Invoice Number - first patch")
-            payment_request_num2 = st.text_input("Payment Request Invoice Number - second patch")
-            payment_request_num3 = st.text_input("Payment Request Invoice Number - third patch")
-            payment_request_num4 = st.text_input("Payment Request Invoice Number - fourth patch")
-            payment_request_num5 = st.text_input("Payment Request Invoice Number - fifth path")
-            st.markdown("---")
+            st.markdown("### Invoice Section")
+            with st.container():
+                st.markdown("### Payment Requesst Invoice Numbers")
+                payment_request_num1 = st.text_input("Payment Request Invoice Number - first patch")
+                payment_request_num2 = st.text_input("Payment Request Invoice Number - second patch")
+                payment_request_num3 = st.text_input("Payment Request Invoice Number - third patch")
+                payment_request_num4 = st.text_input("Payment Request Invoice Number - fourth patch")
+                payment_request_num5 = st.text_input("Payment Request Invoice Number - fifth path")
+                st.markdown("---")
 
-        with st.container():
-            st.markdown("### Delivery To Client Invoice Numbers")
-            delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
-            delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
-            delivery_client_num3 = st.text_input("Delivery Client Invoice Number - third patch")
-            delivery_client_num4 = st.text_input("Delivery Client Invoice Number - fourth patch")
-            delivery_client_num5 = st.text_input("Delivery Client Invoice Number - fifth  patch")
-            st.markdown("---")
+            with st.container():
+                st.markdown("### Delivery To Client Invoice Numbers")
+                delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
+                delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
+                delivery_client_num3 = st.text_input("Delivery Client Invoice Number - third patch")
+                delivery_client_num4 = st.text_input("Delivery Client Invoice Number - fourth patch")
+                delivery_client_num5 = st.text_input("Delivery Client Invoice Number - fifth  patch")
+                st.markdown("---")
 
-        with st.container():
-            st.markdown("### Billing and Cheque Deposition Invoice Number")
-            billing_num = st.text_input("Billing Invoice Number")
-            deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
-            st.markdown("---")
+            with st.container():
+                st.markdown("### Billing and Cheque Despoite Invoice Number")
+                billing_num = st.text_input("Billing Invoice Number")
+                deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
+                st.markdown("---")
 
+            with st.container():
+                st.markdown("### Collection Invoice Number")
+                collection_num1 = st.text_input("Collection Invoice Number - first patch")
+                collection_num2 = st.text_input("Collection Invoice Number - second patch")
+                collection_num3 = st.text_input("Collection Invoice Number - third patch")
+                collection_num4 = st.text_input("Collection Invoice Number - fourth path")
+                collection_num5 = st.text_input("Collection Invoice Number - fifth patch")
+                st.markdown("---")
+        
         with st.container():
-            st.markdown("### Collection Invoice Number")
-            collection_num1 = st.text_input("Collection Invoice Number - first patch")
-            collection_num2 = st.text_input("Collection Invoice Number - second patch")
-            collection_num3 = st.text_input("Collection Invoice Number - third patch")
-            collection_num4 = st.text_input("Collection Invoice Number - fourth path")
-            collection_num5 = st.text_input("Collection Invoice Number - fifth patch")
-            st.markdown("---")
-
-        with st.container():
-            st.markdown("### Production Start Date")
+            st.markdown("### Production and Delivery Date Section")
+            with st.container():
+                st.markdown("### Production Start Date")
         #Revenue Details
-            production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
+                production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
             st.markdown("---")
  
-        with st.container():
-            st.markdown("### Delivery Date")
-            delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
-            delivery_date_2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
-            delivery_date_3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
-            delivery_date_4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
-            delivery_date_5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
-            st.markdown("---")
+            with st.container():
+                st.markdown("### Delivery Date")
+                delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
+                delivery_date_2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
+                delivery_date_3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
+                delivery_date_4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
+                delivery_date_5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
+                st.markdown("---")
 
-        with st.container():
-            st.markdown("### Billing Date")
-            billing_date = st.text_input("Billing Date (YYYYMMDD)")
-            st.markdown("---")
+            with st.container():
+                st.markdown("### Billing Date")
+                billing_date = st.text_input("Billing Date (YYYYMMDD)")
+                st.markdown("---")
 
-        with st.container():
-            st.markdown("### Cheque Collection Date")
-            payment_date1 = st.text_input("Cheque Collection Date - first patch (YYYYMMDD)")
-            payment_date2 = st.text_input("Cheque Collection Date - second patch (YYYYMMDD)")
-            payment_date3 = st.text_input("Cheque Collection Date - third patch (YYYYMMDD)")
-            payment_date4 = st.text_input("Cheque Collection Date - fourth patch (YYYYMMDD)")
-            payment_date5 = st.text_input("Cheque Collection Date - fifth partch (YYYYMMDD)")
+            with st.container():
+                st.markdown("### Cheque Collection Date")
+                payment_date1 = st.text_input("Cheque Collection Date - first patch (YYYYMMDD)")
+                payment_date2 = st.text_input("Cheque Collection Date - second patch (YYYYMMDD)")
+                payment_date3 = st.text_input("Cheque Collection Date - third patch (YYYYMMDD)")
+                payment_date4 = st.text_input("Cheque Collection Date - fourth patch (YYYYMMDD)")
+                payment_date5 = st.text_input("Cheque Collection Date - fifth partch (YYYYMMDD)")
+                st.markdown("---")
             st.markdown("---")
 
     else:
