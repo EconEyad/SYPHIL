@@ -32,7 +32,7 @@ st.title("Transaction Entry Dashboard")
 with st.form("transaction_form"):
 
     with st.container():
-        st.markdown("### Buyer Details")
+        st.markdown("#### Buyer Details")
     # Buyer Details
         buyer_name = st.text_input("Buyer Name")
         buyer_address = st.text_input("Buyer Address")
@@ -40,7 +40,7 @@ with st.form("transaction_form"):
         st.markdown("---")
 
     with st.container():
-        st.markdown("### Printer Details")
+        st.markdown("#### Printer Details")
     # Printer Details
         printer_name = st.text_input("Printer Name")
         printer_address = st.text_input("Printer Address")
@@ -48,13 +48,13 @@ with st.form("transaction_form"):
         st.markdown("---")
 
     with st.container():
-        st.markdown("### Product Details")
+        st.markdown("#### Product Details")
     # Product Details
         product_desc = st.text_input("Product Description")
         st.markdown("---")
 
     with st.container():
-        st.markdown("### Supplier Details")
+        st.markdown("#### Supplier Details")
     # Supplier Details
         supplier_name = st.text_input("Supplier Name")
         supplier_address = st.text_input("Supplier Address")
@@ -62,13 +62,13 @@ with st.form("transaction_form"):
         st.markdown("---")
 
     with st.container():
-        st.markdown("### Agent Details")
+        st.markdown("#### Agent Details")
     # Agent Details
         agent_name = st.text_input("Agent Name")
         st.markdown("---")
 
     with st.container():
-        st.markdown("### Revenue Details")
+        st.markdown("#### Revenue Details")
     # Revenue Details
         price_per_item = st.number_input("Price Per Item", step=0.01, min_value=0.0)
         cost_per_item = st.number_input("Cost Per Item", step=0.01, min_value=0.0)
@@ -81,16 +81,16 @@ with st.form("transaction_form"):
         quotation_num = st.text_input("Qoutation Invoice Number")
 
     with st.container():
-        st.markdown("### Invoice Status: Approved or Disapproved")
+        st.markdown("#### Invoice Status: Approved or Disapproved")
         invoice_status = st.selectbox("Invoice Status", ["Approved", "Disapproved"])
         st.markdown("---")
 
     if invoice_status == "Approved":
         # Invoice Details
         with st.container():
-            st.markdown("### Invoice Section")
+            st.markdown("#### Invoice Section")
             with st.container():
-                st.markdown("### Payment Requesst Invoice Numbers")
+                st.markdown("## Payment Requesst Invoice Numbers")
                 payment_request_num1 = st.text_input("Payment Request Invoice Number - first patch")
                 payment_request_num2 = st.text_input("Payment Request Invoice Number - second patch")
                 payment_request_num3 = st.text_input("Payment Request Invoice Number - third patch")
@@ -99,7 +99,7 @@ with st.form("transaction_form"):
                 st.markdown("---")
 
             with st.container():
-                st.markdown("### Delivery To Client Invoice Numbers")
+                st.markdown("## Delivery To Client Invoice Numbers")
                 delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
                 delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
                 delivery_client_num3 = st.text_input("Delivery Client Invoice Number - third patch")
@@ -108,13 +108,13 @@ with st.form("transaction_form"):
                 st.markdown("---")
 
             with st.container():
-                st.markdown("### Billing and Cheque Despoite Invoice Number")
+                st.markdown("## Billing and Cheque Despoite Invoice Number")
                 billing_num = st.text_input("Billing Invoice Number")
                 deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
                 st.markdown("---")
 
             with st.container():
-                st.markdown("### Collection Invoice Number")
+                st.markdown("## Collection Invoice Number")
                 collection_num1 = st.text_input("Collection Invoice Number - first patch")
                 collection_num2 = st.text_input("Collection Invoice Number - second patch")
                 collection_num3 = st.text_input("Collection Invoice Number - third patch")
@@ -123,15 +123,15 @@ with st.form("transaction_form"):
                 st.markdown("---")
         
         with st.container():
-            st.markdown("### Production and Delivery Date Section")
+            st.markdown("#### Production and Delivery Date Section")
             with st.container():
-                st.markdown("### Production Start Date")
+                st.markdown("## Production Start Date")
         #Revenue Details
                 production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
             st.markdown("---")
  
             with st.container():
-                st.markdown("### Delivery Date")
+                st.markdown("## Delivery Date")
                 delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
                 delivery_date_2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
                 delivery_date_3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
@@ -140,12 +140,12 @@ with st.form("transaction_form"):
                 st.markdown("---")
 
             with st.container():
-                st.markdown("### Billing Date")
+                st.markdown("## Billing Date")
                 billing_date = st.text_input("Billing Date (YYYYMMDD)")
                 st.markdown("---")
 
             with st.container():
-                st.markdown("### Cheque Collection Date")
+                st.markdown("## Cheque Collection Date")
                 payment_date1 = st.text_input("Cheque Collection Date - first patch (YYYYMMDD)")
                 payment_date2 = st.text_input("Cheque Collection Date - second patch (YYYYMMDD)")
                 payment_date3 = st.text_input("Cheque Collection Date - third patch (YYYYMMDD)")
