@@ -149,16 +149,6 @@ with st.form("transaction_form"):
             payment_date5 = st.text_input("Payment Date - fifth partch (YYYYMMDD)")
             st.markdown("---")
 
-        with st.container():
-            st.markdown("### Quantity shipped")
-            quantity1 = st.number_input("Quantity - first patch", step=1, min_value = 0)
-            quantity2 = st.number_input("Quantity - first patch", step=1, min_value = 0)
-            quantity3 = st.number_input("Quantity - first patch", step=1, min_value = 0)
-            quantity4 = st.number_input("Quantity - first patch", step=1, min_value = 0)
-            quantity5 = st.number_input("Quantity - first patch", step=1, min_value = 0)
-            st.markdown("---")
-
-
     else:
         payment_request_num1 = None
         payment_request_num2 = None
@@ -193,12 +183,6 @@ with st.form("transaction_form"):
         payment_date3 = None
         payment_date4 = None
         payment_date5 = None
-
-        quantity1 = None
-        quantity2 = None
-        quantity3 = None
-        quantity4 = None
-        quantity5 = None
         
     submitted = st.form_submit_button("Submit Transaction")
 
@@ -288,11 +272,11 @@ with st.form("transaction_form"):
                 c.execute("""
                     INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
                                         Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
-                                        Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Payment_date1, Payment_date2, Payment_date3, Payment_date4, Payment_date5, Quantity1, Quantity2, Quantity3, Quantity4, Quantity5)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                        Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Payment_date1, Payment_date2, Payment_date3, Payment_date4, Payment_date5 )
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
                     price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses, quantity, production_start_date, delivery_date_1, delivery_date_2, delivery_date_3, delivery_date_4, delivery_date_5, billing_date, payment_date1, payment_date2, payment_date3, payment_date4 ,payment_date5, quantity1, quantity2, quantity3, quantity4, quantity5))
+                    top_up, other_expenses, quantity, production_start_date, delivery_date_1, delivery_date_2, delivery_date_3, delivery_date_4, delivery_date_5, billing_date, payment_date1, payment_date2, payment_date3, payment_date4 ,payment_date5))
                 conn.commit()
 
             else:
@@ -414,12 +398,6 @@ with st.form("transaction_form"):
                 payment_date3 = None
                 payment_date4 = None
                 payment_date5 = None
-
-                quantity1 = None
-                quantity2 = None
-                quantity3 = None
-                quantity4 = None
-                quantity5 = None
 
                 invoice_id = None 
 
