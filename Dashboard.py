@@ -108,16 +108,8 @@ with st.form("transaction_form"):
         with st.container():
             st.markdown("### Billing, Collection and Cheque Deposition Invoice Number")
             billing_num = st.text_input("Billing Invoice Number")
+            collection_num = st.text_input("Collection Invoice Number")
             deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
-            st.markdown("---")
-
-        with st.container():
-            st.markdown("###")
-            collection_num1 = st.text_input("Collection Invoice Number")
-            collection_num2 = st.text_input("Collection Invoice Number")
-            collection_num3 = st.text_input("Collection Invoice Number")
-            collection_num4 = st.text_input("Collection Invoice Number")
-            collection_num5 = st.text_input("Collection Invoice Number")
             st.markdown("---")
 
         with st.container():
@@ -162,13 +154,8 @@ with st.form("transaction_form"):
         delivery_client_num4 = None
         delivery_client_num5 = None
         billing_num = None
+        collection_num = None
         deposit_cheque_num = None
-
-        collection_num1 = None
-        collection_num2 = None
-        collection_num3 = None
-        collection_num4 = None
-        collection_num5 = None
 
         #Revenue Details
         production_start_date = None
@@ -258,10 +245,10 @@ with st.form("transaction_form"):
 
                 # Insert Invoice
                 c.execute("""
-                    INSERT INTO Invoice (Quotation_num, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1, Collection_num2, Collection_num3, Collection_num4, Collection_num5, Deposit_cheque_num, Status)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO Invoice (Quotation_num, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num, Deposit_cheque_num, Status)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s)
                     RETURNING ID
-                """, (quotation_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num1,collection_num2 ,collection_num3 ,collection_num4 ,collection_num5 , deposit_cheque_num, invoice_status))
+                """, (quotation_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num, deposit_cheque_num, invoice_status))
                 conn.commit()
                 result = c.fetchone()
                 if result is None:
@@ -380,11 +367,7 @@ with st.form("transaction_form"):
                 delivery_client_num4 = None
                 delivery_client_num5 = None
                 billing_num = None
-                collection_num1 = None
-                collection_num2 = None
-                collection_num3 = None
-                collection_num4 = None
-                collection_num5 = None
+                collection_num = None
                 deposit_cheque_num = None
                 production_start_date = None
                 delivery_date_1 = None
