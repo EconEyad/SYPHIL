@@ -71,4 +71,3 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Billing_date TEXT DEFAULT NULL,
             Payment_date TEXT DEFAULT NULL
         )
-  
