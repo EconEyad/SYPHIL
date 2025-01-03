@@ -289,7 +289,7 @@ with st.form("transaction_form"):
                     VALUES (%s, %s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
                 """, (buyer_name, buyer_address, buyer_contact, buyer_contact_person))
                 conn.commit()
-                c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_contact_person))
+                c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
                 result = c.fetchone()
                 if result is None:
                     st.error("No matching record found in Buyer table.")
@@ -302,7 +302,7 @@ with st.form("transaction_form"):
                     VALUES (%s, %s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
                 """, (printer_name, printer_address, printer_contact, printer_contact_person))
                 conn.commit()
-                c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_contact_person))
+                c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
                 result = c.fetchone()
                 if result is None:
                     st.error("No matching record found in Printer table.")
@@ -325,10 +325,10 @@ with st.form("transaction_form"):
                 # Insert or get ID for Supplier
                 c.execute("""
                     INSERT INTO Supplier (Name, Address, Contact_details, Contact_Person)
-                    VALUES (%s, %s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    VALUES (%s, %s, %s,%s) ON CONFLICT (Name, Address) DO NOTHING
                 """, (supplier_name, supplier_address, supplier_contact, supplier_contact_person))
                 conn.commit()
-                c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_contact_person))
+                c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
                 result = c.fetchone()
                 if result is None:
                     st.error("No matching record found in Supplier table.")
