@@ -78,8 +78,4 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Delivery_date_5 TEXT DEFAULT NULL,
             Billing_date TEXT DEFAULT NULL,
             Payment_date TEXT DEFAULT NULL
-<<<<<<< HEAD
-        )
-=======
         );
->>>>>>> multiple_SQL
