@@ -33,7 +33,6 @@ with st.form("transaction_form"):
 
     with st.container():
         st.markdown("## Buyer Details")
-        st.markdown("---")
     # Buyer Details
         buyer_name = st.text_input("Buyer Name")
         buyer_address = st.text_input("Buyer Address")
@@ -42,7 +41,6 @@ with st.form("transaction_form"):
 
     with st.container():
         st.markdown("## Printer Details")
-        st.markdown("---")
     # Printer Details
         printer_name = st.text_input("Printer Name")
         printer_address = st.text_input("Printer Address")
@@ -51,14 +49,12 @@ with st.form("transaction_form"):
 
     with st.container():
         st.markdown("## Product Details")
-        st.markdown("---")
     # Product Details
         product_desc = st.text_input("Product Description")
         st.markdown("---")
 
     with st.container():
         st.markdown("## Supplier Details")
-        st.markdown("---")
     # Supplier Details
         supplier_name = st.text_input("Supplier Name")
         supplier_address = st.text_input("Supplier Address")
@@ -67,14 +63,12 @@ with st.form("transaction_form"):
 
     with st.container():
         st.markdown("## Agent Details")
-        st.markdown("---")
     # Agent Details
         agent_name = st.text_input("Agent Name")
         st.markdown("---")
 
     with st.container():
         st.markdown("## Revenue Details")
-        st.markdown("---")
     # Revenue Details
         price_per_item = st.number_input("Price Per Item", step=0.01, min_value=0.0)
         cost_per_item = st.number_input("Cost Per Item", step=0.01, min_value=0.0)
@@ -89,7 +83,6 @@ with st.form("transaction_form"):
 
     with st.container():
         st.markdown("## Invoice Status: Approved or Disapproved")
-        st.markdown("---")
         invoice_status = st.selectbox("Invoice Status", ["Approved", "Disapproved"])
         st.markdown("---")
 
@@ -97,7 +90,6 @@ with st.form("transaction_form"):
         # Invoice Details
         with st.container():
             st.markdown("## Invoice Section")
-            st.markdown("---")
             with st.container():
                 st.markdown("#### Payment Requesst Invoice Numbers")
                 payment_request_num1 = st.text_input("Payment Request Invoice Number - first patch")
@@ -133,7 +125,6 @@ with st.form("transaction_form"):
         
         with st.container():
             st.markdown("## Production, Delivery Date Section, Billing, Cheque Collection Date")
-            st.markdown("---")
             with st.container():
                 st.markdown("#### Production Start Date")
                 production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
