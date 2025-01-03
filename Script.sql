@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS Buyer (
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
             Contact_details TEXT NOT NULL,
-            CONSTRAINT buyer_unique_name UNIQUE (Name, Address) 
+            Contact_person text NOT NULL,
+            CONSTRAINT buyer_unique_name UNIQUE (Name, Contact_person) 
         );
 
 
@@ -12,7 +13,8 @@ CREATE TABLE IF NOT EXISTS Printer (
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
             Contact_details TEXT NOT NULL,
-            CONSTRAINT printer_unique_name UNIQUE (Name, Address) 
+            Contact_person text NOT NULL,
+            CONSTRAINT printer_unique_name UNIQUE (Name, Contact_person) 
         );
 
 
@@ -28,7 +30,8 @@ CREATE TABLE IF NOT EXISTS Supplier (
             Name TEXT NOT NULL,
             Address TEXT NOT NULL,
             Contact_details TEXT NOT NULL,
-            CONSTRAINT supplier_unique_name UNIQUE (Name, Address) 
+            Contact_person text NOT NULL,
+            CONSTRAINT supplier_unique_name UNIQUE (Name, Contact_person) 
 
         );
 
