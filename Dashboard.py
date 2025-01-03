@@ -67,11 +67,20 @@ with st.form("transaction_form"):
     if invoice_status == "Approved":
         # Invoice Details
         payment_request_num = st.text_input("Payment Request Invoice Number")
-        delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
-        delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
-        delivery_client_num3 = st.text_input("Delivery Client Invoice Number - third patch")
-        delivery_client_num4 = st.text_input("Delivery Client Invoice Number - fourth patch")
-        delivery_client_num5 = st.text_input("Delivery Client Invoice Number - fifth  patch")
+
+        multiple_shipments = st.checkbox("Were there multiple shipments?", value=False)
+        if multiple_shipments:
+            delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
+            delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
+            delivery_client_num3 = st.text_input("Delivery Client Invoice Number - third patch")
+            delivery_client_num4 = st.text_input("Delivery Client Invoice Number - fourth patch")
+            delivery_client_num5 = st.text_input("Delivery Client Invoice Number - fifth  patch")
+        else:
+            delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
+            delivery_client_num2 = None
+            delivery_client_num3 = None
+            delivery_client_num4 = None
+            delivery_client_num5 = None
 
         billing_num = st.text_input("Billing Invoice Number")
         collection_num = st.text_input("Collection Invoice Number")
@@ -79,11 +88,20 @@ with st.form("transaction_form"):
 
         #Revenue Details
         production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
-        delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
-        delivery_date_2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
-        delivery_date_3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
-        delivery_date_4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
-        delivery_date_5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
+
+        if multiple_shipments:  
+            delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
+            delivery_date_2 = st.text_input("Delivery Date - second patch (YYYYMMDD)")
+            delivery_date_3 = st.text_input("Delivery Date - third patch (YYYYMMDD)")
+            delivery_date_4 = st.text_input("Delivery Date - fourth patch (YYYYMMDD)")
+            delivery_date_5 = st.text_input("Delivery Date - fifth patch (YYYYMMDD)")
+        else:
+            delivery_date_1 = st.text_input("Delivery Date - first patch (YYYYMMDD)")
+            delivery_date_2 = None
+            delivery_date_3 = None
+            delivery_date_4 = None
+            delivery_date_5 = None
+
         billing_date = st.text_input("Billing Date (YYYYMMDD)")
         payment_date = st.text_input("Payment Date (YYYYMMDD)")
 
@@ -107,6 +125,7 @@ with st.form("transaction_form"):
         delivery_date_5 = None
         billing_date = None
         payment_date = None
+        
 
     
     submitted = st.form_submit_button("Submit Transaction")
@@ -313,5 +332,5 @@ with st.form("transaction_form"):
             st.success("Transaction submitted successfully!")
 
         except Exception as e:
-            conn.rollback()  # Roll back transaction on error
+            conn.rollback()  # Roll back transaction on error test
             st.error(f"An error occurred: {e}")
