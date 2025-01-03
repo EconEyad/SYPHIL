@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Invoice (
             Quotation_num TEXT,
             Payment_request_num TEXT DEFAULT NULL,
             Delivery_client_num1 TEXT DEFAULT NULL,
-            Delivery_client_num2 TEXT DEFAULT null,
+            Delivery_client_num2 TEXT DEFAULT NULL,
             Delivery_client_num3 TEXT DEFAULT NULL,
             Delivery_client_num4 TEXT DEFAULT NULL,
             Delivery_client_num5 TEXT DEFAULT NULL,
@@ -78,4 +78,4 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Delivery_date_5 TEXT DEFAULT NULL,
             Billing_date TEXT DEFAULT NULL,
             Payment_date TEXT DEFAULT NULL
-        )
+        );
