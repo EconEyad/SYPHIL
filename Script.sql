@@ -88,9 +88,9 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Delivery_date_4 TEXT DEFAULT NULL,
             Delivery_date_5 TEXT DEFAULT NULL,
             Billing_date TEXT DEFAULT NULL,
-            Payment_date1 TEXT DEFAULT NULL,
-            Payment_date2 TEXT DEFAULT NULL,
-            Payment_date3 TEXT DEFAULT NULL,
-            Payment_date4 TEXT DEFAULT NULL,
-            Payment_date5 TEXT DEFAULT NULL
+            Collection_cheque_date1 TEXT DEFAULT NULL,
+            Collection_cheque_date2 TEXT DEFAULT NULL,
+            Collection_cheque_date3 TEXT DEFAULT NULL,
+            Collection_cheque_date4 TEXT DEFAULT NULL,
+            Collection_cheque_date5 TEXT DEFAULT NULL
         );
