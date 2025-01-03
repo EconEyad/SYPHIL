@@ -141,12 +141,12 @@ with st.form("transaction_form"):
             st.markdown("---")
 
         with st.container():
-            st.markdown("### Payment Date")
-            payment_date1 = st.text_input("Payment Date - first patch (YYYYMMDD)")
-            payment_date2 = st.text_input("Payment Date - second patch (YYYYMMDD)")
-            payment_date3 = st.text_input("Payment Date - third patch (YYYYMMDD)")
-            payment_date4 = st.text_input("Payment Date - fourth patch (YYYYMMDD)")
-            payment_date5 = st.text_input("Payment Date - fifth partch (YYYYMMDD)")
+            st.markdown("### Cheque Collection Date")
+            payment_date1 = st.text_input("Cheque Collection Date - first patch (YYYYMMDD)")
+            payment_date2 = st.text_input("Cheque Collection Date - second patch (YYYYMMDD)")
+            payment_date3 = st.text_input("Cheque Collection Date - third patch (YYYYMMDD)")
+            payment_date4 = st.text_input("Cheque Collection Date - fourth patch (YYYYMMDD)")
+            payment_date5 = st.text_input("Cheque Collection Date - fifth partch (YYYYMMDD)")
             st.markdown("---")
 
     else:
@@ -272,7 +272,7 @@ with st.form("transaction_form"):
                 c.execute("""
                     INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
                                         Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
-                                        Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Payment_date1, Payment_date2, Payment_date3, Payment_date4, Payment_date5 )
+                                        Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Collection_cheque_date1, Collection_cheque_date2, Collection_cheque_date3, Collection_cheque_date4, Collection_cheque_date5 )
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
                     price_per_item, cost_per_item, print_per_item, commission_rate,
