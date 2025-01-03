@@ -85,6 +85,7 @@ with st.form("transaction_form"):
         quantity = st.number_input("Quantity", step=1, min_value = 0)
 
         quotation_num = st.text_input("Qoutation Invoice Number")
+        st.markdown("---")
 
     with st.container():
         st.markdown("## Invoice Status: Approved or Disapproved")
@@ -128,14 +129,13 @@ with st.form("transaction_form"):
                 collection_num3 = st.text_input("Collection Invoice Number - third patch")
                 collection_num4 = st.text_input("Collection Invoice Number - fourth path")
                 collection_num5 = st.text_input("Collection Invoice Number - fifth patch")
-                st.markdown("---")
+            st.markdown("---")
         
         with st.container():
-            st.markdown("## Production and Delivery Date Section")
+            st.markdown("## Production, Delivery Date Section, Billing, Cheque Collection Date")
             st.markdown("---")
             with st.container():
                 st.markdown("#### Production Start Date")
-        #Revenue Details
                 production_start_date = st.text_input("Production Start Date (YYYYMMDD)")
             st.markdown("---")
  
