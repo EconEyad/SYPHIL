@@ -42,12 +42,18 @@ CREATE TABLE IF NOT EXISTS Agent (
 CREATE TABLE IF NOT EXISTS Invoice (
             ID SERIAL UNIQUE NOT NULL PRIMARY KEY,
             Quotation_num TEXT,
-            Payment_request_num TEXT DEFAULT NULL,
+            Payment_request_num1 TEXT DEFAULT NULL,
+            Payment_request_num2 TEXT DEFAULT NULL,
+            Payment_request_num3 TEXT DEFAULT NULL,
+            Payment_request_num4 TEXT DEFAULT NULL,
+            Payment_request_num5 TEXT DEFAULT NULL,
+            
             Delivery_client_num1 TEXT DEFAULT NULL,
             Delivery_client_num2 TEXT DEFAULT NULL,
             Delivery_client_num3 TEXT DEFAULT NULL,
             Delivery_client_num4 TEXT DEFAULT NULL,
             Delivery_client_num5 TEXT DEFAULT NULL,
+            
             Billing_num TEXT DEFAULT NULL,
             Collection_num TEXT DEFAULT NULL,
             Deposit_cheque_num TEXT DEFAULT NULL,
@@ -77,5 +83,11 @@ CREATE TABLE IF NOT EXISTS Revenue (
             Delivery_date_4 TEXT DEFAULT NULL,
             Delivery_date_5 TEXT DEFAULT NULL,
             Billing_date TEXT DEFAULT NULL,
-            Payment_date TEXT DEFAULT NULL
+            Payment_date1 TEXT DEFAULT NULL,
+            Payment_date2 TEXT DEFAULT NULL,
+            Payment_date3 TEXT DEFAULT NULL,
+            Payment_date4 TEXT DEFAULT NULL,
+            Payment_date5 TEXT DEFAULT NULL
+
+            
         );
