@@ -108,11 +108,11 @@ with st.form("transaction_form"):
         with st.container():
             st.markdown("### Billing, Collection and Cheque Deposition Invoice Number")
             billing_num = st.text_input("Billing Invoice Number")
-            collection_num1 = st.text_input("Collection Invoice Number")
-            collection_num2 = st.text_input("Collection Invoice Number")
-            collection_num3 = st.text_input("Collection Invoice Number")
-            collection_num4 = st.text_input("Collection Invoice Number")
-            collection_num5 = st.text_input("Collection Invoice Number")
+            collection_num1 = st.text_input("Collection Invoice Number - first patch")
+            collection_num2 = st.text_input("Collection Invoice Number - second patch")
+            collection_num3 = st.text_input("Collection Invoice Number - third patch")
+            collection_num4 = st.text_input("Collection Invoice Number - fourth path")
+            collection_num5 = st.text_input("Collection Invoice Number - fifth patch")
             deposit_cheque_num = st.text_input("Deposit Cheque Invoice Number")
             st.markdown("---")
 
