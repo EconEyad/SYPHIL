@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Invoice (
             Payment_request_num4 TEXT DEFAULT NULL,
             Payment_request_num5 TEXT DEFAULT NULL,
             
-            Payment_order TEXT DEFAULT NULL,
+            Purchase_order TEXT DEFAULT NULL,
             
             Delivery_client_num1 TEXT DEFAULT NULL,
             Delivery_client_num2 TEXT DEFAULT NULL,
