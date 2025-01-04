@@ -413,10 +413,10 @@ with st.form("transaction_form"):
                 invoice_id = None 
                 
             with placeholder:
-                st.success("✅ Transaction submitted successfully!")
+                st.success("Transaction submitted successfully!")
                 st.balloons()
                 st.stop()
 
         except Exception as e:
             conn.rollback()  # Roll back transaction on error test
-            st.error(f"❌ An error occurred: {e}")
+            st.error(f"An error occurred: {e}")
