@@ -416,6 +416,7 @@ with st.form("transaction_form"):
                 st.success("Transaction submitted successfully!")
                 st.balloons()
                 st.stop()
+                st.experimental_rerun()
 
         except Exception as e:
             conn.rollback()  # Roll back transaction on error test
