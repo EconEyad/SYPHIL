@@ -29,13 +29,4 @@ INSERT INTO Supplier (Name, Address, Contact_details) VALUES ('Supplier Co.', '7
 INSERT INTO Agent (Name) VALUES ('Agent Smith');
 
 
-ALTER TABLE invoice 
-ADD COLUMN Payment_order text;
 
-ALTER TABLE invoice
-ALTER COLUMN Payment_order SET DEFAULT NULL;
-
-INSERT INTO invoice (Payment_order) VALUES ('Q2'), ('Q3'), ('Q4'), ('Q5'), ('Q6');
-
-ALTER TABLE invoice
-RENAME COLUMN Payment_order TO Purchase_order;
