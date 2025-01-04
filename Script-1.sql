@@ -27,3 +27,10 @@ INSERT INTO Printer (Name, Address, Contact_details) VALUES ('Printer Company', 
 INSERT INTO Product (Item_desc) VALUES ('Product A');
 INSERT INTO Supplier (Name, Address, Contact_details) VALUES ('Supplier Co.', '789 Broadway', 5555555555);
 INSERT INTO Agent (Name) VALUES ('Agent Smith');
+
+
+ALTER TABLE invoice 
+ADD COLUMN Payment_order text;
+
+ALTER TABLE invoice
+ALTER COLUMN Payment_order SET DEFAULT NULL;
