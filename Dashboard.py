@@ -191,232 +191,242 @@ with st.form("transaction_form"):
         payment_date3 = None
         payment_date4 = None
         payment_date5 = None
-        
-    submitted = st.form_submit_button("Submit Transaction")
-    placeholder = st.empty()
+
+    confirmation = st.radio(
+        "Are you sure you want to submit?",
+        options=["No", "Yes"],
+        index=0,  # Default to "No"
+        horizontal=True)
+    
+    if confirmation == "Yes":
+
+        submitted = st.form_submit_button("Submit Transaction")
+        placeholder = st.empty()
 
     # Second part of the app: the execution
-    if submitted:
-        try:
-            if invoice_status == "Approved":
-            # Insert or get ID for Buyer
-                c.execute("""
-                    INSERT INTO Buyer (Name, Address, Contact_details)
-                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (buyer_name, buyer_address, buyer_contact))
-                conn.commit()
-                c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Buyer table.")
-                    raise Exception("Buyer not found in database.")
-                buyer_id = result[0]
+        if submitted:
+            try:
+                if invoice_status == "Approved":
+                # Insert or get ID for Buyer
+                    c.execute("""
+                        INSERT INTO Buyer (Name, Address, Contact_details)
+                        VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    """, (buyer_name, buyer_address, buyer_contact))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Buyer table.")
+                        raise Exception("Buyer not found in database.")
+                    buyer_id = result[0]
 
-                # Insert or get ID for Printer
-                c.execute("""
-                    INSERT INTO Printer (Name, Address, Contact_details)
-                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (printer_name, printer_address, printer_contact))
-                conn.commit()
-                c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Printer table.")
-                    raise Exception("Printer not found in database.")
-                printer_id = result[0]
+                    # Insert or get ID for Printer
+                    c.execute("""
+                        INSERT INTO Printer (Name, Address, Contact_details)
+                        VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    """, (printer_name, printer_address, printer_contact))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Printer table.")
+                        raise Exception("Printer not found in database.")
+                    printer_id = result[0]
 
-                # Insert or get ID for Product
-                c.execute("""
-                    INSERT INTO Product (Item_desc)
-                    VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
-                """, (product_desc,))
-                conn.commit()
-                c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Product table.")
-                    raise Exception("Product not found in database.")
-                product_id = result[0]
+                    # Insert or get ID for Product
+                    c.execute("""
+                        INSERT INTO Product (Item_desc)
+                        VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
+                    """, (product_desc,))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Product table.")
+                        raise Exception("Product not found in database.")
+                    product_id = result[0]
 
-                # Insert or get ID for Supplier
-                c.execute("""
-                    INSERT INTO Supplier (Name, Address, Contact_details)
-                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (supplier_name, supplier_address, supplier_contact))
-                conn.commit()
-                c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Supplier table.")
-                    raise Exception("Supplier not found in database.")
-                supplier_id = result[0]
+                    # Insert or get ID for Supplier
+                    c.execute("""
+                        INSERT INTO Supplier (Name, Address, Contact_details)
+                        VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    """, (supplier_name, supplier_address, supplier_contact))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Supplier table.")
+                        raise Exception("Supplier not found in database.")
+                    supplier_id = result[0]
 
-                # Insert or get ID for Agent
-                c.execute("""
-                    INSERT INTO Agent (Name)
-                    VALUES (%s) ON CONFLICT (Name) DO NOTHING
-                """, (agent_name,))
-                conn.commit()
-                c.execute("SELECT ID FROM Agent WHERE Name = %s", (agent_name,))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Agent table.")
-                    raise Exception("Agent not found in database.")
-                agent_id = result[0]
+                    # Insert or get ID for Agent
+                    c.execute("""
+                        INSERT INTO Agent (Name)
+                        VALUES (%s) ON CONFLICT (Name) DO NOTHING
+                    """, (agent_name,))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Agent WHERE Name = %s", (agent_name,))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Agent table.")
+                        raise Exception("Agent not found in database.")
+                    agent_id = result[0]
 
-                # Insert or get ID for Invoice
-                c.execute("""
-                    INSERT INTO Invoice (Quotation_num, Purchase_order, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
-                    VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s,%s)
+                    # Insert or get ID for Invoice
+                    c.execute("""
+                        INSERT INTO Invoice (Quotation_num, Purchase_order, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
+                        VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s,%s)
+                        RETURNING ID
+                    """, (quotation_num, po_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num1, collection_num2, collection_num3,collection_num4,collection_num5, deposit_cheque_num, invoice_status))
+                    conn.commit()
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Invoice table.")
+                        raise Exception("Invoice not found in database.")
+                    invoice_id = result[0]
+
+                    # Insert into Revenue
+                    c.execute("""
+                        INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
+                                            Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
+                                            Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Collection_cheque_date1, Collection_cheque_date2, Collection_cheque_date3, Collection_cheque_date4, Collection_cheque_date5 )
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
+                        price_per_item, cost_per_item, print_per_item, commission_rate,
+                        top_up, other_expenses, quantity, production_start_date, delivery_date_1, delivery_date_2, delivery_date_3, delivery_date_4, delivery_date_5, billing_date, payment_date1, payment_date2, payment_date3, payment_date4 ,payment_date5))
+                    conn.commit()
+
+                else:
+                    c.execute("""
+                        INSERT INTO Buyer (Name, Address, Contact_details)
+                        VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    """, (buyer_name, buyer_address, buyer_contact))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Buyer table.")
+                        raise Exception("Buyer not found in database.")
+                    buyer_id = result[0]
+
+                    # Insert or get ID for Printer
+                    c.execute("""
+                        INSERT INTO Printer (Name, Address, Contact_details)
+                        VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    """, (printer_name, printer_address, printer_contact))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Printer table.")
+                        raise Exception("Printer not found in database.")
+                    printer_id = result[0]
+
+                    # Insert or get ID for Product
+                    c.execute("""
+                        INSERT INTO Product (Item_desc)
+                        VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
+                    """, (product_desc,))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Product table.")
+                        raise Exception("Product not found in database.")
+                    product_id = result[0]
+
+                    # Insert or get ID for Supplier
+                    c.execute("""
+                        INSERT INTO Supplier (Name, Address, Contact_details)
+                        VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
+                    """, (supplier_name, supplier_address, supplier_contact))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Supplier table.")
+                        raise Exception("Supplier not found in database.")
+                    supplier_id = result[0]
+
+                    # Insert or get ID for Agent
+                    c.execute("""
+                        INSERT INTO Agent (Name)
+                        VALUES (%s) ON CONFLICT (Name) DO NOTHING
+                    """, (agent_name,))
+                    conn.commit()
+                    c.execute("SELECT ID FROM Agent WHERE Name = %s", (agent_name,))
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Agent table.")
+                        raise Exception("Agent not found in database.")
+                    agent_id = result[0]
+
+                    # Insert or get ID for invoice
+                    c.execute("""
+                    INSERT INTO Invoice (Quotation_num, Status)
+                    VALUES (%s, %s)
                     RETURNING ID
-                """, (quotation_num, po_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num1, collection_num2, collection_num3,collection_num4,collection_num5, deposit_cheque_num, invoice_status))
-                conn.commit()
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Invoice table.")
-                    raise Exception("Invoice not found in database.")
-                invoice_id = result[0]
+                    """, (quotation_num, invoice_status))
+                    conn.commit()
+                    result = c.fetchone()
+                    if result is None:
+                        st.error("No matching record found in Invoice table.")
+                        raise Exception("Invoice not found in database.")
+                    invoice_id = result[0]
 
-                # Insert into Revenue
-                c.execute("""
+                    c.execute("""
                     INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
-                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
-                                        Other_expenses, Quantity, Production_start_date, Delivery_date_1, Delivery_date_2, Delivery_date_3,Delivery_date_4, Delivery_date_5,Billing_date, Collection_cheque_date1, Collection_cheque_date2, Collection_cheque_date3, Collection_cheque_date4, Collection_cheque_date5 )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
-                    price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses, quantity, production_start_date, delivery_date_1, delivery_date_2, delivery_date_3, delivery_date_4, delivery_date_5, billing_date, payment_date1, payment_date2, payment_date3, payment_date4 ,payment_date5))
-                conn.commit()
+                                            Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
+                                            Other_expenses, Quantity)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
+                        price_per_item, cost_per_item, print_per_item, commission_rate,
+                        top_up, other_expenses, quantity))
+                    conn.commit()
 
-            else:
-                c.execute("""
-                    INSERT INTO Buyer (Name, Address, Contact_details)
-                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (buyer_name, buyer_address, buyer_contact))
-                conn.commit()
-                c.execute("SELECT ID FROM Buyer WHERE Name = %s AND Address = %s", (buyer_name, buyer_address))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Buyer table.")
-                    raise Exception("Buyer not found in database.")
-                buyer_id = result[0]
+                    payment_request_num1 = None
+                    payment_request_num2 = None
+                    payment_request_num3 = None
+                    payment_request_num4 = None
+                    payment_request_num5 = None
 
-                # Insert or get ID for Printer
-                c.execute("""
-                    INSERT INTO Printer (Name, Address, Contact_details)
-                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (printer_name, printer_address, printer_contact))
-                conn.commit()
-                c.execute("SELECT ID FROM Printer WHERE Name = %s AND Address = %s", (printer_name, printer_address))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Printer table.")
-                    raise Exception("Printer not found in database.")
-                printer_id = result[0]
+                    po_num = None
 
-                # Insert or get ID for Product
-                c.execute("""
-                    INSERT INTO Product (Item_desc)
-                    VALUES (%s) ON CONFLICT (Item_desc) DO NOTHING
-                """, (product_desc,))
-                conn.commit()
-                c.execute("SELECT ID FROM Product WHERE Item_desc = %s", (product_desc,))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Product table.")
-                    raise Exception("Product not found in database.")
-                product_id = result[0]
+                    delivery_client_num1 = None
+                    delivery_client_num2 = None
+                    delivery_client_num3 = None
+                    delivery_client_num4 = None
+                    delivery_client_num5 = None
+                    billing_num = None
+                    collection_num1 = None
+                    collection_num2 = None
+                    collection_num3 = None
+                    collection_num4 = None
+                    collection_num5 = None
+                    deposit_cheque_num = None
+                    production_start_date = None
+                    delivery_date_1 = None
+                    delivery_date_2 = None
+                    delivery_date_3 = None
+                    delivery_date_4 = None
+                    delivery_date_5 = None
+                    billing_date = None
 
-                # Insert or get ID for Supplier
-                c.execute("""
-                    INSERT INTO Supplier (Name, Address, Contact_details)
-                    VALUES (%s, %s, %s) ON CONFLICT (Name, Address) DO NOTHING
-                """, (supplier_name, supplier_address, supplier_contact))
-                conn.commit()
-                c.execute("SELECT ID FROM Supplier WHERE Name = %s AND Address = %s", (supplier_name, supplier_address))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Supplier table.")
-                    raise Exception("Supplier not found in database.")
-                supplier_id = result[0]
+                    payment_date1 = None
+                    payment_date2 = None
+                    payment_date3 = None
+                    payment_date4 = None
+                    payment_date5 = None
 
-                # Insert or get ID for Agent
-                c.execute("""
-                    INSERT INTO Agent (Name)
-                    VALUES (%s) ON CONFLICT (Name) DO NOTHING
-                """, (agent_name,))
-                conn.commit()
-                c.execute("SELECT ID FROM Agent WHERE Name = %s", (agent_name,))
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Agent table.")
-                    raise Exception("Agent not found in database.")
-                agent_id = result[0]
+                    invoice_id = None 
 
-                # Insert or get ID for invoice
-                c.execute("""
-                INSERT INTO Invoice (Quotation_num, Status)
-                VALUES (%s, %s)
-                RETURNING ID
-                """, (quotation_num, invoice_status))
-                conn.commit()
-                result = c.fetchone()
-                if result is None:
-                    st.error("No matching record found in Invoice table.")
-                    raise Exception("Invoice not found in database.")
-                invoice_id = result[0]
-
-                c.execute("""
-                INSERT INTO Revenue (ID_buyer, ID_printer, ID_product, ID_agent, ID_supplier, ID_invoice,
-                                        Price_per_item, Cost_per_item, Print_per_item, Commission_rate, Top_up, 
-                                        Other_expenses, Quantity)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, (buyer_id, printer_id, product_id, agent_id, supplier_id, invoice_id,
-                    price_per_item, cost_per_item, print_per_item, commission_rate,
-                    top_up, other_expenses, quantity))
-                conn.commit()
-
-                payment_request_num1 = None
-                payment_request_num2 = None
-                payment_request_num3 = None
-                payment_request_num4 = None
-                payment_request_num5 = None
-
-                po_num = None
-
-                delivery_client_num1 = None
-                delivery_client_num2 = None
-                delivery_client_num3 = None
-                delivery_client_num4 = None
-                delivery_client_num5 = None
-                billing_num = None
-                collection_num1 = None
-                collection_num2 = None
-                collection_num3 = None
-                collection_num4 = None
-                collection_num5 = None
-                deposit_cheque_num = None
-                production_start_date = None
-                delivery_date_1 = None
-                delivery_date_2 = None
-                delivery_date_3 = None
-                delivery_date_4 = None
-                delivery_date_5 = None
-                billing_date = None
-
-                payment_date1 = None
-                payment_date2 = None
-                payment_date3 = None
-                payment_date4 = None
-                payment_date5 = None
-
-                invoice_id = None 
-
-            with placeholder:
-                st.success("✅ Transaction submitted successfully!")
-                st.balloons()
-                st.stop()
-
-        except Exception as e:
-            conn.rollback()  # Roll back transaction on error test
-            st.error(f"❌ An error occurred: {e}")
+                with placeholder:
+                    st.success("✅ Transaction submitted successfully!")
+                    st.balloons()
+                    st.stop()
+        
+            except Exception as e:
+                conn.rollback()  # Roll back transaction on error test
+                st.error(f"❌ An error occurred: {e}")
+    else:
+        st.warning("⚠️ Please confirm before submitting.")
