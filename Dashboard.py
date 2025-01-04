@@ -411,9 +411,10 @@ with st.form("transaction_form"):
                 payment_date5 = None
 
                 invoice_id = None 
+
             with placeholder:
                 st.success("✅ Transaction submitted successfully!")
-                st.ballons()
+                st.balloons()
                 st.stop()
 
         except Exception as e:
