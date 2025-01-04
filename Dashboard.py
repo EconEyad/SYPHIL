@@ -98,8 +98,8 @@ with st.form("transaction_form"):
             st.markdown("---")
 
         with st.container():
-            st.markdown("## Payment Order Invoice Number")
-            po_num = st.text_input("Payment Order Invoice Number")
+            st.markdown("## Purchase Order Invoice Number")
+            po_num = st.text_input("Purchase Order Invoice Number")
             st.markdown("---")
 
         with st.container():
@@ -265,7 +265,7 @@ with st.form("transaction_form"):
 
                 # Insert or get ID for Invoice
                 c.execute("""
-                    INSERT INTO Invoice (Quotation_num, Payment_order, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
+                    INSERT INTO Invoice (Quotation_num, Purchase_order, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
                     VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s,%s)
                     RETURNING ID
                 """, (quotation_num, po_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num1, collection_num2, collection_num3,collection_num4,collection_num5, deposit_cheque_num, invoice_status))
