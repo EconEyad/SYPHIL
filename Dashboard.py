@@ -256,7 +256,7 @@ with st.form("transaction_form"):
                     raise Exception("Agent not found in database.")
                 agent_id = result[0]
 
-                # Insert Invoice
+                # Insert or get ID for Invoice
                 c.execute("""
                     INSERT INTO Invoice (Quotation_num, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s,%s)
