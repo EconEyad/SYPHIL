@@ -98,6 +98,11 @@ with st.form("transaction_form"):
             st.markdown("---")
 
         with st.container():
+            st.markdown("## Payment Order Invoice Number")
+            po_num = st.text_input("Payment Order Invoice Number")
+            st.markdown("---")
+
+        with st.container():
             st.markdown("## Delivery To Client Invoice Numbers")
             delivery_client_num1 = st.text_input("Delivery Client Invoice Number - first patch")
             delivery_client_num2 = st.text_input("Delivery Client Invoice Number - second patch")
@@ -156,6 +161,8 @@ with st.form("transaction_form"):
         payment_request_num3 = None
         payment_request_num4 = None
         payment_request_num5 = None
+
+        po_num = None
 
         delivery_client_num1 = None
         delivery_client_num2 = None
@@ -258,10 +265,10 @@ with st.form("transaction_form"):
 
                 # Insert or get ID for Invoice
                 c.execute("""
-                    INSERT INTO Invoice (Quotation_num, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s,%s)
+                    INSERT INTO Invoice (Quotation_num, Payment_order, Payment_request_num1,payment_request_num2 ,payment_request_num3 ,payment_request_num4 , payment_request_num5, Delivery_client_num1, Delivery_client_num2, Delivery_client_num3, Delivery_client_num4, Delivery_client_num5,Billing_num, Collection_num1,Collection_num2,Collection_num3,Collection_num4,Collection_num5 ,Deposit_cheque_num, Status)
+                    VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s,%s,%s,%s,%s, %s, %s, %s, %s, %s, %s,%s)
                     RETURNING ID
-                """, (quotation_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num1, collection_num2, collection_num3,collection_num4,collection_num5, deposit_cheque_num, invoice_status))
+                """, (quotation_num, po_num, payment_request_num1, payment_request_num2,payment_request_num3 , payment_request_num4,payment_request_num5 , delivery_client_num1,delivery_client_num2,delivery_client_num3,delivery_client_num4,delivery_client_num5, billing_num, collection_num1, collection_num2, collection_num3,collection_num4,collection_num5, deposit_cheque_num, invoice_status))
                 conn.commit()
                 result = c.fetchone()
                 if result is None:
@@ -373,6 +380,8 @@ with st.form("transaction_form"):
                 payment_request_num3 = None
                 payment_request_num4 = None
                 payment_request_num5 = None
+
+                po_num = None
 
                 delivery_client_num1 = None
                 delivery_client_num2 = None
