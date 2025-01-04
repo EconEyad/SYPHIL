@@ -193,6 +193,7 @@ with st.form("transaction_form"):
         payment_date5 = None
         
     submitted = st.form_submit_button("Submit Transaction")
+    placeholder = st.empty()
 
     # Second part of the app: the execution
     if submitted:
@@ -410,9 +411,11 @@ with st.form("transaction_form"):
                 payment_date5 = None
 
                 invoice_id = None 
-
-            st.success("Transaction submitted successfully!")
+            with placeholder:
+                st.success("✅ Transaction submitted successfully!")
+                st.ballons()
+                st.stop()
 
         except Exception as e:
             conn.rollback()  # Roll back transaction on error test
-            st.error(f"An error occurred: {e}")
+            st.error(f"❌ An error occurred: {e}")
