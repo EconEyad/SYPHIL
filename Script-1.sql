@@ -34,3 +34,6 @@ ADD COLUMN Payment_order text;
 
 ALTER TABLE invoice
 ALTER COLUMN Payment_order SET DEFAULT NULL;
+
+INSERT INTO invoice (Payment_order) VALUES ('Q2'), ('Q3'), ('Q4'), ('Q5'), ('Q6');
+
