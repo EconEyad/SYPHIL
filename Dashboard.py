@@ -78,7 +78,7 @@ with st.form("transaction_form"):
         other_expenses = st.number_input("Other Expenses", step=0.01, min_value =0.0)
         quantity = st.number_input("Quantity", step=1, min_value = 0)
 
-        quotation_num = st.text_input("Qoutation Invoice Number")
+        quotation_num = st.text_input("Quotation Invoice Number")
         st.markdown("---")
 
     with st.container():
