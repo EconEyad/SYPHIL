@@ -29,4 +29,6 @@ INSERT INTO Supplier (Name, Address, Contact_details) VALUES ('Supplier Co.', '7
 INSERT INTO Agent (Name) VALUES ('Agent Smith');
 
 
-
+UPDATE Revenue
+SET quantity = 240
+WHERE ID = 3;
